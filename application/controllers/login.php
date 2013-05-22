@@ -17,7 +17,7 @@ class Login extends CI_Controller{
         $this->load->view('/login');
         //$this->load->view('footer');
     }
-
+ //csdgvdfgfdfgdfg
     public function authentication() 
     {    
     	 if(isset($_POST['btnlogin']))
