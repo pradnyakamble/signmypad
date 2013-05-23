@@ -63,7 +63,7 @@
 					</li>
 					
 					<!-- Root menu item -->
-					<li><a href="#">Manage Pdf</a>
+                                        <li><a href="<?php echo base_url(); ?>admin/pdfmanager">Manage Pdf</a>
 	
 						<!-- Submenu block divided to five blocks -->
 						
