@@ -1,9 +1,36 @@
 <!-- Full width content box with minimizer -->
+        
 <section class="page-wrapper" role="main">
+    <section id="dashboard">
+            <!-- Nav Shortcuts -->
+            <!-- /Nav Shortcuts -->
+        </section>
+<?php if($this->session->flashdata('edit_success')){?>
+        <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>User Name has been updated successfully</p>
+        </div>
+        <?php }if($this->session->flashdata('edit_unsuccess')){?>
+            <div class="notification attention">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Failed</h4>
+
+                <p>There is some problem in updating User Name</p>
+            </div>
+        <?php } ?> 
     <article class="content-box minimizer">
         <header>	
-            <h2>Manage Pdf</h2>
-        </header>
+            <h2>Manage User</h2>
+            <nav style="display: block;">
+                <ul class="button-switch">
+                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
+                    </li>
+                </ul>
+            </nav>
+        </header> 
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
                 <h3>Table with jQuery.dataTables</h3>
@@ -18,7 +45,7 @@
 									<div>
 										<p>
 										<label for="file">
-										Name:	
+										First Name:	
 										</label>
 										<input name="FirstName" type="text" value="<?php echo $arrData['0']['FirstName'];?>" class="required" />
 										</p>
@@ -27,7 +54,7 @@
 									<div>
 										<p>
 										<label for="file">
-										Sub Title:	
+										Last Name:	
 										</label>
 										<input name="LastName" type="text" value="<?php echo $arrData['0']['LastName'];?>" class="required" />
 										</p>
@@ -36,7 +63,7 @@
 									<div>
 										<p>
 										<label for="file">
-										Address:	
+										User Name:	
 										</label>
 										<input name="UserName" type="text" value="<?php echo $arrData['0']['UserName'];?>" class="required" />
 										</p>
@@ -45,7 +72,7 @@
 										<div>
 										<p>
 										<label for="file">
-										Phone No:	
+										Mobile No:	
 										</label>
 										<input name="mobileNo" type="text" value="<?php echo $arrData['0']['mobileNo'];?>" class="required" />
 										</p>
@@ -54,7 +81,7 @@
 										<div>
 										<p>
 										<label for="file">
-										Phone No:	
+										Email Id:	
 										</label>
 										<input name="emailId" type="text" value="<?php echo $arrData['0']['emailId'];?>" class="required" />
 										</p>
@@ -72,16 +99,7 @@
 							
 						  </form>
 						  <?php } ?>
-						  
-                    <tfoot>
-                        <tr>
-                                <th>File Name</th>
-                                <th>Time Stamp</th>
-                                <th>Date</th>
-                                <th>Created By</th>
-                                <th>Status</th>
-                        </tr>
-                    </tfoot>
+                   
                 </table>
             </div>
         </section>	
