@@ -17,4 +17,52 @@ class Pdfmanager_models extends CI_Model{
 	//echo $this->db->last_query();
         return $query->result_array();
     }
+    
+    function getMappedUsers(){
+        
+    }
+    
+    function getPdfDetail($id){
+        //echo "here";die;
+        $this->db->select('pdf_resources.*');
+        $this->db->from('pdf_resources');
+        $this->db->where('pdf_resources.pdfFileId',$id);
+        $query = $this->db->get();
+        //echo "<pre>";
+        return $query->result_array();
+    }
+    /**
+     * checkExistPdfFileName
+     *
+     * checks pdf file name already exist or not
+     * 
+     * @author   pradnya kamble
+     * @access	public
+     * @return	array
+     */
+    public function checkExistPdfFileName($pdfFileName, $pdfId = FALSE) {
+        $this->db->like('pdfFilename',$pdfFileName, 'none');
+        if ($pdfId) {
+            $this->db->where('pdfFileId !=', $pdfId);
+        }
+        $query = $this->db->get('pdf_resources');
+        return $query->result_array();
+    }
+    /**
+     * setPdfInfo
+     *
+     * Set Pdf data 
+     * 
+     * @author   pradnya kamble
+     * @access	public
+     * @return	int
+     */
+    public function setPdfInfo($pdfId) {
+        $data = array('pdfFilename'=>$_POST['pdfFileName']);
+        $this->db->where('pdfFileId', $pdfId);
+        $result = $this->db->update('pdf_resources', $data);
+       return $result;
+        
+    }
+   
 }    
