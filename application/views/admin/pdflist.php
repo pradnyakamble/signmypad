@@ -21,7 +21,7 @@
 
                 <p>There is some problem in updating pdf file name</p>
             </div>
-        <?php }?> 
+        <?php } ?> 
     <article class="content-box minimizer">
         <header>
             
