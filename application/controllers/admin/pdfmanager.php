@@ -4,7 +4,7 @@ class Pdfmanager extends CI_Controller{
     public function __construct() {
         parent::__construct();
         if ($this->session->userdata('is_user_logged_in') != 1) {
-            $this->load->view('/login');
+            redirect('../login');
         }
         $this->load->library('form_validation');
         $this->load->model('Pdfmanager_models');
@@ -21,13 +21,30 @@ class Pdfmanager extends CI_Controller{
         $this->load->view('admin/pdflist',$data);
         $this->load->view('footer');
     }
-    
-    public function deletePdf($pdfId){
+    /**
+    * deletePdfFile
+    *
+    * Delete the yard city 
+    * 
+    * @author   pradnya kamble
+    * @access	public
+    * @return	void
+    */
+    public function deletePdfFile($pdfId){
         if(isset($pdfId) && $pdfId!=''){
-            $pdflistDetails = $this->Pdfmanager_models->getMappedUsers();
-            
+            $pdflistDetails = $this->Pdfmanager_models->getMappedUsers($pdfId);
+             if(empty($pdflistDetails)){
+                 $retmsg = $this->Pdfmanager_models->delPdfFile($pdfId);
+                 $this->session->set_flashdata('del_success', $retmsg);
+                 redirect('admin/pdfmanager/index');
+             }else{
+                $retmsg = 1;
+                $this->session->set_flashdata('del_unsuccess', $retmsg);
+                redirect('admin/pdfmanager/index');
+             }
         }
-    }     
+    } 
+     
         
     public function editPdfDetail($pdfId){
         $this->form_validation->set_rules('pdfFileName', 'Pdf File Name', 'required');
