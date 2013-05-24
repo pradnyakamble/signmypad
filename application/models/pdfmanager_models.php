@@ -12,14 +12,22 @@ class Pdfmanager_models extends CI_Model{
         $this->db->select('pdf_resources.* ,Users.FirstName,Users.LastName');
         $this->db->from('pdf_resources');
         $this->db->join('Users', 'Users.UserId = pdf_resources.CreatedBy');
-        $this->db->where('pdf_resources.Status','Active');
+        //$this->db->where('pdf_resources.Status','published');
         $query = $this->db->get();
 	//echo $this->db->last_query();
         return $query->result_array();
     }
     
-    function getMappedUsers(){
-        
+    function getMappedUsers($pdfId){
+        $this->db->select('pdf_access_details.PdfFileId,Users.FirstName,Users.LastName');
+        $this->db->from('pdf_access_details');
+        $this->db->join('Users', 'Users.UserId = pdf_access_details.UserId');
+        $this->db->where('Users.Status','Active');
+        $this->db->where('pdf_access_details.PaymentStatus','1');
+        $this->db->where('pdf_access_details.PdfFileId',$pdfId);
+        $query = $this->db->get();
+	//echo $this->db->last_query();
+        return $query->result_array();
     }
     
     function getPdfDetail($id){
@@ -58,11 +66,24 @@ class Pdfmanager_models extends CI_Model{
      * @return	int
      */
     public function setPdfInfo($pdfId) {
-        $data = array('pdfFilename'=>$_POST['pdfFileName']);
+        $data = array('pdfFilename'=>$_POST['pdfFileName'],
+                       'status' =>$_POST['status'] );
         $this->db->where('pdfFileId', $pdfId);
         $result = $this->db->update('Users', $data);
        return $result;
-        
     }
+    
+    /**
+     * delPdfFile
+     * 
+     * delete pdf file
+     * @author pradnya kamble
+     * @access public
+     * @return int 
+     */ 
+   public function delPdfFile($pdfId){
+      $result =  $this->db->delete('pdf_resources', array('pdfFileId' => $pdfId)); 
+      return $result;
+   }
    
 }    

@@ -28,7 +28,7 @@
         </script>
         <article class="content-box minimizer">
             <header>
-                	<h2 style="padding-right: 90px;">Yard Region</h2>
+                	<h2 style="padding-right: 90px;">Pdf detail/h2>
 
                 <nav>
                     <ul class="button-switch">
@@ -63,12 +63,22 @@
                                     <?php }?>
                                 <legend>Pdf File Details</legend>
                                 <dl>	<dt>
-			<label>Pdf File Name</label>
-		</dt>
+                                        <label>Pdf File Name</label>
+                                        </dt>
+                                        <dd>
+                                            <input type="text" class="small required" id="yardRegionName" value="<?php echo $pdfFileDetails['pdfFilename'];?>"
+                                            name="pdfFileName">
+                                        </dd>
+                                        <dt>
+                                            <label>Select pdf File status</label>
+                                        </dt>
 
                                     <dd>
-                                        <input type="text" class="small required" id="yardRegionName" value="<?php echo $pdfFileDetails['pdfFilename'];?>"
-                                        name="pdfFileName">
+                                        <select name="status" class="small required">
+						<option value="">select</option>
+                                                <option value="published" <?php if($pdfFileDetails['status']=="published") echo 'selected="selected"';?>>Published</option>
+                                                <option value="Unpublished" <?php if($pdfFileDetails['status']=="Unpublished") echo 'selected="selected"';?>>Unpublished</option>
+                                        </select>
                                     </dd>
                                 </dl>
                     </fieldset>

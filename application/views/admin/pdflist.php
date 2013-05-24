@@ -21,7 +21,22 @@
 
                 <p>There is some problem in updating pdf file name</p>
             </div>
-        <?php } ?> 
+        <?php } if($this->session->flashdata('del_unsuccess')){?>
+        <div class="notification attention">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                <h4>Failed</h4>
+
+            <p>some users are accessing this pdf we cannot delete this pdf file</p>
+        </div> 
+    <?php } if($this->session->flashdata('del_success')){?>
+        <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>Pdf File Deleted Successfully !!</p>
+        </div>
+    <?php } ?>
     <article class="content-box minimizer">
         <header>
             
@@ -61,7 +76,7 @@
                                     <a href="<?php echo site_url();?>/admin/pdfmanager/editPdfDetail/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img src="<?php echo base_url(); ?>public/img/icons/pencil.png" alt="Pencil"></a>
                                 </td>
                                 <td>
-                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdf/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Pencil" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdfFile/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Pencil" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
                                 </td>
                         </tr>
                         <?php } 
