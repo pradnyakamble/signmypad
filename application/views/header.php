@@ -73,7 +73,7 @@
 					
 					<!-- Root menu items -->
 					<li><a href="/" class="muon-no-submenu">Dashboard</a></li>
-					<li><a href="#">MANAGE USERS</a>
+					<li><a href="<?php echo base_url(); ?>admin/manageuser">MANAGE USERS</a>
 					
 						<!-- Submenu block divided to five blocks -->
 						
