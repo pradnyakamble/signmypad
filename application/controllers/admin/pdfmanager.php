@@ -15,9 +15,10 @@ class Pdfmanager extends CI_Controller{
         $this->load->view('header');
         $pdflistDetails = array();
         $pdflistDetails = $this->Pdfmanager_models->getPdfList();
+        foreach($pdflistDetails as $key =>$pdflistDetail){
+            $pdflistDetails[$key]['mapUserToPdf'] = $this->Pdfmanager_models->getUserNotMappedToPdf($pdflistDetail['pdfFileId']);
+        }
         $data['pdflistDetails'] = $pdflistDetails;
-        //echo "<pre>";
-        //print_r($pdflistDetails);die;
         $this->load->view('admin/pdflist',$data);
         $this->load->view('footer');
     }
@@ -79,9 +80,17 @@ class Pdfmanager extends CI_Controller{
         $this->load->view('header');
          $this->load->view('footer');
 	$this->load->view('editPdfDetails',$data);
-       
-
     }
+    
+    
+    /**
+     * mappUserToPdf
+     * 
+     * allow the user(who have paid for that) to acccess pdf 
+     * @author   pradnya kamble
+     * @access	public
+     * @return	void
+    */
         
     
          

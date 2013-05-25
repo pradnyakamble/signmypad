@@ -28,7 +28,7 @@
         </script>
         <article class="content-box minimizer">
             <header>
-                	<h2 style="padding-right: 90px;">Pdf detail/h2>
+                	<h2 style="padding-right: 90px;">Pdf detail</h2>
 
                 <nav>
                     <ul class="button-switch">

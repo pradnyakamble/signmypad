@@ -86,4 +86,21 @@ class Pdfmanager_models extends CI_Model{
       return $result;
    }
    
+   /**
+    * getUserNotMappedToPdf
+    * 
+    * get list of user who have paid for pdf but not having access to the file
+    * @author pradnya kamble
+    * @access public
+    * @return int 
+    */
+   public function getUserNotMappedToPdf($pdfId){
+        $this->db->select(' payment_details.*');
+        $this->db->from(' payment_details');
+        $this->db->where(' payment_details.accessAllowed',0);
+        $this->db->where('PdfFileId', $pdfId);
+        $query = $this->db->get();
+        return $query->result_array();
+   }
+   
 }    

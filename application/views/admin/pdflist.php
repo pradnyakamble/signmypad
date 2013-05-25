@@ -50,8 +50,7 @@
         </header>
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
-                <h3>Table with jQuery.dataTables</h3>
-                    <!-- Sample jQuery DataTable  -->
+                <!-- Sample jQuery DataTable  -->
                 <table class="datatable">
                     <thead>
                         <tr>
@@ -61,7 +60,8 @@
                                 <th>Created By</th>
                                 <th>Status</th>
                                 <th>Edit</th>
-                                <th> Delete </th>
+                                <th>Delete </th>
+                                <th>Assign User</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,10 @@
                                     <a href="<?php echo site_url();?>/admin/pdfmanager/editPdfDetail/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img src="<?php echo base_url(); ?>public/img/icons/pencil.png" alt="Pencil"></a>
                                 </td>
                                 <td>
-                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdfFile/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Pencil" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdfFile/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Trashcan" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                </td>
+                                <td>
+                                    <a href="<?php echo site_url();?>/admin/pdfmanager/mappUserToPdf/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Trashcan" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
                                 </td>
                         </tr>
                         <?php } 
@@ -92,6 +95,7 @@
                                 <th>Status</th>
                                 <th>Edit</th>
                                 <th> Delete </th>
+                                <th>Assign User</th>
                         </tr>
                     </tfoot>
                 </table>
