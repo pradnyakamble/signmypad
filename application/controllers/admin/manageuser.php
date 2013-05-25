@@ -17,7 +17,7 @@ class Manageuser extends CI_Controller{
         $this->load->view('admin/manageuser',$data);
 		$this->load->view('footer');
 	}
-	
+
 		public function editmanageuser()
 	{   
  		$id = $_GET['id'];	
@@ -31,33 +31,59 @@ class Manageuser extends CI_Controller{
 
 	public function editmanageuserdetails()
 	{
-		$this->load->model('manageuser_models');
-		$userDataUpdate = $this->manageuser_models->editmanageuserdetails();
-		if($userDataUpdate){
-			$data['successmsg'] = 1;
-		}else{
-			$data['failmsg'] = 1;
-		}
+		$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');
+        if ($this->form_validation->run() === FALSE){
+	        $this->load->model('manageuser_models');
+			$userDataUpdate = $this->manageuser_models->editmanageuserdetails();
+			$data['userDataUpdate'] = $userDataUpdate;
+	    if(!is_numeric ($data['userDataUpdate'])){
+	        $this->load->view('header');
+			$this->load->view('admin/manageuser',$data);
+			$this->load->view('footer');
+        }else{
+	        $FirstName = $this->input->post('FirstName');
+	        $FirstNameExist = $this->manageuser_models->checkExistFirstName ($FirstName ,$UserId);
+	       	 if(empty($FirstNameExist)){
+	           /// $data['FirstName'] = $FirstName;  
+	            $retmsg = $this->manageuser_models->setUserInfo($UserId);
+	            if($retmsg){
+	                $this->session->set_flashdata('edit_success', $retmsg);
+	            }else{
+	               $this->session->set_flashdata('edit_unsuccess', $retmsg); 
+	            }    
+	            redirect('admin/manageuser/index');
+         }else{
+            $retmsg = 1;
+            $this->session->set_flashdata('edit_unsuccess', $retmsg);
+            redirect('admin/manageuser/editmanageuserdetail/'.$UserId);
+         }
+        }
 		$this->load->view('header');
 		$this->load->view('admin/manageuser',$data);
 		$this->load->view('footer');
-		
+		}
+	}
+
+    public function addmanageuser(){	
+		//$this->load->model('manageuser_models');
+		//$data = $this->manageuser_models->addmanageuser();
+		/*if(isset($_POST) && $_POST != '' ){
+		$data = array(
+		'FirstName' => $_POST['FirstName'],
+		'LastName' => $_POST['LastName'],
+		'UserName' => $_POST['UserName'],
+		'Password' => $_POST['Password'],
+		'Status' => $_POST['Status'],
+		'UserTypeId' => $_POST['UserTypeId'],
+		'mobileNo' => $_POST['mobileNo'],
+		'emailId' => $_POST['emailId'],
+	   	);
+		$this->$data = $this->manageuser_models->addmanageuser($data);
+		}*/
+		$this->load->view('header');	
+        $this->load->view('admin/addmanageuser');
+		$this->load->view('footer');
 	}
 	
-	function manageusersuccess()
-	{
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('header');	
-			$this->load->view('admin/manageusersuccess');
-			$this->load->view('footer');
-		}
-		else
-		{
-			$this->load->view('header');
-			$this->load->view('admin/editmanageuser');
-			$this->load->view('footer');
-		}
-	}
 
 }    

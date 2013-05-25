@@ -27,10 +27,8 @@ class Manageuser_models extends CI_Model{
 
 	function editmanageuserdetails()
     {
-    	//echo "Hi";
-		
+    	//echo "<pre>";
 		//print_r($_POST);
-		//die;
 		$id=$_POST['UserId'];
 		$data = array(
 		'FirstName' => $_POST['FirstName'],
@@ -40,9 +38,26 @@ class Manageuser_models extends CI_Model{
 		'emailId' => $_POST['emailId'],
 	   	);
 		$this->db->where('UserId', $id);
-		$querry = $this->db->update('Users', $data); 
-		
+		$this->db->update('Users', $data); 
 	}
 	
+	 public function checkExistFirstName($FirstName, $UserId = FALSE) {
+        $this->db->like('FirstName',$FirstName, 'none');
+        if ($UserId) {
+            $this->db->where('UserId !=', $UserId);
+        }
+        $query = $this->db->get('pdf_resources');
+        return $query->result_array();
+    }
+	 
+	 	 
+	 function addmanageuser($data)
+    {
+    	//print_r($_POST);
+		//die;		
+		$this->db->insert('Users', $data); 
+		return true;
+	}
+
 	
 }    
