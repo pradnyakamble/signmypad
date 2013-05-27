@@ -22,7 +22,7 @@
 
                 <h4>Failed</h4>
 
-            <p>some users are accessing this pdf we cannot delete this pdf file</p>
+            <p>some user one is login with this user id we cannot delete this user data !!</p>
         </div> 
     <?php } if($this->session->flashdata('del_success')){?>
         <div class="notification success"
@@ -30,15 +30,32 @@
 
                     <h4>Success</h4>
 
-            <p>Pdf File Deleted Successfully !!</p>
+            <p>User data is Deleted Successfully !!</p>
         </div>
+           <?php } if($this->session->flashdata('allowAccess_success')){?>
+        <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>User Data hase been successfully added in Database !!</p>
+        </div>
+    <?php } if($this->session->flashdata('allowAccess_unsuccess')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>There is some problem please try later.</p>
+        </div>
+  
         <?php } ?>
     <article class="content-box minimizer">
         <header>	
             <h2>Manage User</h2>
             <nav style="display: block;">
                 <ul class="button-switch">
-                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
+                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addManageUser" class="button">Add New User</a>
                     </li>
                 </ul>
             </nav>
