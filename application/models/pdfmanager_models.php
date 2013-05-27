@@ -48,11 +48,14 @@ class Pdfmanager_models extends CI_Model{
      * @access	public
      * @return	array
      */
-    public function checkExistPdfFileName($pdfFileName, $pdfId = FALSE) {
-        $this->db->like('pdfFilename',$pdfFileName, 'none');
+    public function checkExistPdfFileName($pdfFileName, $pdfId = '') {
+        $this->db->select('*');
+        
         if ($pdfId) {
             $this->db->where('pdfFileId !=', $pdfId);
         }
+
+        $this->db->like('pdfFilename',$pdfFileName, 'none');
         $query = $this->db->get('pdf_resources');
         return $query->result_array();
     }
@@ -84,6 +87,73 @@ class Pdfmanager_models extends CI_Model{
    public function delPdfFile($pdfId){
       $result =  $this->db->delete('pdf_resources', array('pdfFileId' => $pdfId)); 
       return $result;
+   }
+   
+   /**
+    * getUserNotMappedToPdf
+    * 
+    * get list of user who have paid for pdf but not having access to the file
+    * @author pradnya kamble
+    * @access public
+    * @return int 
+    */
+   public function getUserNotMappedToPdf($pdfId){
+        $this->db->select(' payment_details.*,Users.FirstName,Users.LastName');
+        $this->db->from(' payment_details');
+         $this->db->join('Users', 'Users.UserId = payment_details.UserId ');
+        $this->db->where(' payment_details.accessAllowed',0);
+        $this->db->where('PdfFileId', $pdfId);
+        $query = $this->db->get();
+        return $query->result_array();
+   }
+   
+   
+   public function setUserPdfAccess($pdfId){
+       //echo "<pre>";
+       //print_r($_POST);die;
+       $userPaymentArray= explode('_',$_POST['User']);
+       $userid = $userPaymentArray[0];
+       $paymentId = $userPaymentArray[1];
+       $data = array(
+               'UserId' => $userid,
+               'PaymentId' =>  $paymentId,
+               'PdfFileId' =>  $pdfId,
+               'PaymentStatus'=>'1',
+               'Access'=>'1',
+               'comment'=>$_POST['comment'],
+            );
+      $resultInserted = $this->db->insert('pdf_access_details', $data); 
+      if($resultInserted){
+        $updatedata = array(
+               'accessAllowed' =>'1'
+             );
+        $this->db->where('PaymentId', $paymentId);
+        $updateResult = $this->db->update('payment_details',$updatedata);
+        if($updateResult){
+            return true;
+        }else{
+            $this->db->delete('pdf_access_details', array('AccessId' => $this->db->insert_id())); 
+            return false;
+        }
+        
+      }else{
+          return false;
+      }
+       
+   }
+   
+   public function addPdf(){
+       $fileData = $_FILES;
+       $fileName = substr($fileData['uploadfile']['name'],0,strpos($fileData['uploadfile']['name'],'.'));
+       $userSessData = $this->session->userdata('userdata');
+       $data = array(
+        'pdfFilename' => $fileName,
+        'CreatedBy' => $userSessData['user_id'],
+       'status' =>'published'
+       );
+       $this->db->set('createdOn', 'NOW()', FALSE);
+       $insertResult = $this->db->insert('pdf_resources', $data); 
+       
    }
    
 }    

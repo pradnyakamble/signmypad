@@ -36,6 +36,30 @@
 
             <p>Pdf File Deleted Successfully !!</p>
         </div>
+    <?php } if($this->session->flashdata('allowAccess_success')){?>
+        <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>User hase been successfully allowded to access PDF</p>
+        </div>
+    <?php } if($this->session->flashdata('allowAccess_unsuccess')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>There is some problem please try later.</p>
+        </div>
+    <?php } if($this->session->flashdata('add_success')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>Pdf file has been uploaded successfully</p>
+        </div>
     <?php } ?>
     <article class="content-box minimizer">
         <header>
@@ -43,15 +67,14 @@
             <h2>Manage Pdf</h2>
             <nav style="display: block;">
                 <ul class="button-switch">
-                    <li><a href="<?php echo base_url();  ?>admin/pdfmanager/addpdf" class="button">Add Pdf File</a>
+                    <li><a href="<?php echo base_url();  ?>admin/pdfmanager/addNewPdfFile" class="button">Add Pdf File</a>
                     </li>
                 </ul>
             </nav>
         </header>
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
-                <h3>Table with jQuery.dataTables</h3>
-                    <!-- Sample jQuery DataTable  -->
+                <!-- Sample jQuery DataTable  -->
                 <table class="datatable">
                     <thead>
                         <tr>
@@ -61,7 +84,8 @@
                                 <th>Created By</th>
                                 <th>Status</th>
                                 <th>Edit</th>
-                                <th> Delete </th>
+                                <th>Delete </th>
+                                <th>Assign User</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +100,13 @@
                                     <a href="<?php echo site_url();?>/admin/pdfmanager/editPdfDetail/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img src="<?php echo base_url(); ?>public/img/icons/pencil.png" alt="Pencil"></a>
                                 </td>
                                 <td>
-                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdfFile/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Pencil" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                    <a href="<?php echo site_url();?>/admin/pdfmanager/deletePdfFile/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Trashcan" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                </td>
+                                <td><?php if(!empty($pdflistDetails[$istart]['mapUserToPdf'])) { ?>
+                                    <a href="<?php echo site_url();?>/admin/pdfmanager/mappUserToPdf/<?php echo $pdflistDetails[$istart]['pdfFileId'];?>"><img alt="Trashcan" src="<?php echo base_url(); ?>public/img/icons/trashcan.png"></a>
+                                    <?php } else { ?>
+                                    ---
+                                    <?php } ?>
                                 </td>
                         </tr>
                         <?php } 
@@ -92,6 +122,7 @@
                                 <th>Status</th>
                                 <th>Edit</th>
                                 <th> Delete </th>
+                                <th>Assign User</th>
                         </tr>
                     </tfoot>
                 </table>
