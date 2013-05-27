@@ -127,11 +127,8 @@ class Pdfmanager extends CI_Controller{
                $pdf_files    = array('uploadfile'); // FILE INPUT NAME
                $PDFUpload    = $this -> UploadPDF($pdf_path, $pdf_files);
                if($PDFUpload){
-                   $PdfId = $this->Pdfmanager_models->addPdf();
-                   if($PdfId !==False){
-                       if(isset($_POST['User']) && !empty($_POST['User'])){
-                        $msg = $this->Pdfmanager_models->setUserPdfAccess($PdfId);
-                       }
+                   $insertResult = $this->Pdfmanager_models->addPdf();
+                   if($insertResult !==False){
                      $retmsg = 1;
                      $this->session->set_flashdata('add_success', $retmsg);
                      redirect('admin/pdfmanager/index');

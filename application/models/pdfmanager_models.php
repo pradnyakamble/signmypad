@@ -153,9 +153,12 @@ class Pdfmanager_models extends CI_Model{
    }
    
    public function addPdf(){
+      // echo "<pre>";
+      // print_r($_POST);die;
        $fileData = $_FILES;
        $fileName = substr($fileData['uploadfile']['name'],0,strpos($fileData['uploadfile']['name'],'.'));
        $userSessData = $this->session->userdata('userdata');
+       $this->db->trans_start();
        $data = array(
         'pdfFilename' => $fileName,
         'CreatedBy' => $userSessData['user_id'],
@@ -163,12 +166,17 @@ class Pdfmanager_models extends CI_Model{
        );
        $this->db->set('createdOn', 'NOW()', FALSE);
        $insertResult = $this->db->insert('pdf_resources', $data); 
-       if($insertResult){
-       return  $this->db->insert_id();
-       }else{
-           return false;
+       $PdfId = $this->db->insert_id();
+       if(isset($_POST['User'][0]) && $_POST['User'][0]!=''){
+        $msg = $this->Pdfmanager_models->setUserPdfAccess($PdfId);
        }
-       
+       $this->db->trans_complete();
+       if ($this->db->trans_status() === FALSE){
+        $this->db->trans_rollback();
+        return false;
+      }else{
+        $this->db->trans_commit();
+        return true;
+      }
    }
-   
 }    

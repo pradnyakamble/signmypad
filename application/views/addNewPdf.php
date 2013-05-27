@@ -73,7 +73,7 @@
                                     </dt>
                                     <dd>
                                         <select name="User[]" class="small required" id="user" multiple="multiple">
-						<option value="" selected>select</option>
+						<option value='' selected>select</option>
                                                 <?php foreach($mapUserToPdf as $mapuser) { 
                                                 echo ' <option value="'.$mapuser['UserId'].'" >'.$mapuser['FirstName'].' '.$mapuser['LastName'].'</option>';
                                                   
