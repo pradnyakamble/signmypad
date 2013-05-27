@@ -85,7 +85,7 @@
 									
 											<tr>
 												<td colspan = "2">
-													<input type="submit" name="submit" value="Save">
+													<input type="submit" name="submit" value="Add New Uaer">
 												</td>
 											</tr>
 											

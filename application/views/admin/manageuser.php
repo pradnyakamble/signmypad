@@ -55,7 +55,7 @@
             <h2>Manage User</h2>
             <nav style="display: block;">
                 <ul class="button-switch">
-                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
+                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addManageUser" class="button">Add New User</a>
                     </li>
                 </ul>
             </nav>

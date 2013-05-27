@@ -84,15 +84,17 @@ class Manageuser_models extends CI_Model{
    }
 		
 	   public function addManageUser(){
-	       $fileData = $_FILES;
-	       $fileName = substr($fileData['uploadfile']['name'],0,strpos($fileData['uploadfile']['name'],'.'));
-	       $userSessData = $this->session->userdata('userdata');
 	       $data = array(
-	        'pdfFilename' => $fileName,
-	        'CreatedBy' => $userSessData['user_id'],
-	       'status' =>'published'
+	       'FirstName' =>'FirstName',
+	       'LastName' =>'LastName',
+	       'UserName' =>'UserName',
+	       'Password' =>'Password',
+	       'status' =>'published',
+	       'UserTypeId' =>'UserTypeId',
+	       'mobileNo' =>'mobileNo',
+	       'emailId' =>'emailId',
 	       );
-	       $insertResult = $this->db->insert('pdf_resources', $data); 
+	       $insertResult = $this->db->insert('Users', $data); 
 	       
 	   }
 	

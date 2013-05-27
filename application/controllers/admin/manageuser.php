@@ -90,13 +90,31 @@ class Manageuser extends CI_Controller{
 		$this->load->view('footer');
 		}
 	
-
-    public function addmanageuser(){
-    	$this->manageuser_models->addmanageuser();
-		$this->load->view('header');	
-        $this->load->view('admin/addmanageuser', $data);
-		$this->load->view('footer');
-	}
 	
+	   public function addManageUser(){
+      
+       if(isset($_POST['UserName'])){
+           if(empty($_POST['UserName'])){
+            $retmsg = 1;
+            $this->session->set_flashdata('upload_fail', $retmsg);
+           }else{
+               $userDetails   = array('FirstName','LastName','UserName', 'Password','status','UserTypeId','mobileNo','emailId'); // FILE INPUT NAME
+              if($userDetails){
+                   $addManageUser = $this->manageuser_models->addManageUser();
+                   $retmsg = 1;
+                   $this->session->set_flashdata('add_success', $retmsg);
+                   redirect('admin/manageuser/');
+               }else{
+                $retmsg = 1;
+                $this->session->set_flashdata('upload_fail', $retmsg);   
+               }
+           } 
+       }else{
+           
+       }
+       $this->load->view('header');
+       $this->load->view('footer');
+       $this->load->view('admin/addManageUser');
+   }
 
 }    
