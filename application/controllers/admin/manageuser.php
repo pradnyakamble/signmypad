@@ -4,7 +4,7 @@ class Manageuser extends CI_Controller{
     public function __construct() {
         parent::__construct();
         if ($this->session->userdata('is_user_logged_in') != 1) {
-            $this->load->view('/login');
+            redirect('../login');
         }
         $this->load->library('form_validation');
         $this->load->model('manageuser_models');
@@ -12,7 +12,7 @@ class Manageuser extends CI_Controller{
 	 
    public function index(){	
 		$this->load->model('manageuser_models');
-		$data['query'] = $this->manageuser_models->manage_user();
+		$data['query'] = $this->manageuser_models->manageuser();
 		$this->load->view('header');	
         $this->load->view('admin/manageuser',$data);
 		$this->load->view('footer');
@@ -29,22 +29,33 @@ class Manageuser extends CI_Controller{
 		$this->load->view('footer');
 	}
 
-	public function editmanageuserdetails()
+	public function editmanageuserdetail($userid)
 	{
+		//echo "11111";  die;
 		$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');
+		$this->form_validation->set_rules('LastName', 'Last Name', 'required');
+		$this->form_validation->set_rules('UserName', 'User Name', 'required');
+		$this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
+		$this->form_validation->set_rules('emailId', 'Email Id', 'required');
         if ($this->form_validation->run() === FALSE){
-	        $this->load->model('manageuser_models');
-			$userDataUpdate = $this->manageuser_models->editmanageuserdetails();
-			$data['userDataUpdate'] = $userDataUpdate;
-	    if(!is_numeric ($data['userDataUpdate'])){
-	        $this->load->view('header');
-			$this->load->view('admin/manageuser',$data);
-			$this->load->view('footer');
+        	 $data['userId']=$userid;
+            if(!is_numeric($data['userId'] )){
+                redirect('admin/manageuser/index');
+            }
+			$userDetails= $this->manageuser_models->getUserDetail($userid);
+			//echo "<pre>";
+			//print_r($userDetails);
+            $data['userDetails'] = $userDetails[0];
+            if(empty($data['userDetails'])){
+                redirect('admin/manageuser/index');
+            }
+	        
         }else{
-	        $FirstName = $this->input->post('FirstName');
-	        $FirstNameExist = $this->manageuser_models->checkExistFirstName ($FirstName ,$UserId);
-	       	 if(empty($FirstNameExist)){
-	           /// $data['FirstName'] = $FirstName;  
+			$emailId = $this->input->post('emailId');
+			$UserId = $this->input->post('UserId');
+	        $UserNameExist = $this->manageuser_models->checkExistmanageUser ($emailId, $UserId);
+	       	 if(empty($UserNameExist)){
+	           // $data['UserName'] = $UserName;  
 	            $retmsg = $this->manageuser_models->setUserInfo($UserId);
 	            if($retmsg){
 	                $this->session->set_flashdata('edit_success', $retmsg);
@@ -59,29 +70,15 @@ class Manageuser extends CI_Controller{
          }
         }
 		$this->load->view('header');
-		$this->load->view('admin/manageuser',$data);
+		$this->load->view('admin/editmanageuser',$data);
 		$this->load->view('footer');
 		}
-	}
+	
 
-    public function addmanageuser(){	
-		//$this->load->model('manageuser_models');
-		//$data = $this->manageuser_models->addmanageuser();
-		/*if(isset($_POST) && $_POST != '' ){
-		$data = array(
-		'FirstName' => $_POST['FirstName'],
-		'LastName' => $_POST['LastName'],
-		'UserName' => $_POST['UserName'],
-		'Password' => $_POST['Password'],
-		'Status' => $_POST['Status'],
-		'UserTypeId' => $_POST['UserTypeId'],
-		'mobileNo' => $_POST['mobileNo'],
-		'emailId' => $_POST['emailId'],
-	   	);
-		$this->$data = $this->manageuser_models->addmanageuser($data);
-		}*/
+    public function addmanageuser(){
+    	$this->manageuser_models->addmanageuser();
 		$this->load->view('header');	
-        $this->load->view('admin/addmanageuser');
+        $this->load->view('admin/addmanageuser', $data);
 		$this->load->view('footer');
 	}
 	

@@ -53,7 +53,7 @@ class Pdfmanager_models extends CI_Model{
         if ($pdfId) {
             $this->db->where('pdfFileId !=', $pdfId);
         }
-        $query = $this->db->get('Users');
+        $query = $this->db->get('pdf_resources');
         return $query->result_array();
     }
     /**
@@ -69,7 +69,7 @@ class Pdfmanager_models extends CI_Model{
         $data = array('pdfFilename'=>$_POST['pdfFileName'],
                        'status' =>$_POST['status'] );
         $this->db->where('pdfFileId', $pdfId);
-        $result = $this->db->update('Users', $data);
+        $result = $this->db->update('pdf_resources', $data);
        return $result;
     }
     

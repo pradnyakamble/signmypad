@@ -1,24 +1,81 @@
 <!-- Full width content box with minimizer -->
-        
+   
+<script type="text/javascript">
+$.noConflict();
+       $(document).ready(function () {
+            $.validator.addMethod("NameRegex", function (value, element) {
+                return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
+            }, "city name must contain only letters, numbers, or dashes.");
+            $("#frmadminstrator").validate({
+                rules: {
+                    "FirstName": {
+                        required: true,
+                        NameRegex: true,
+                    },
+                    
+                    "LastName": {
+                        required: true,
+                        NameRegex: true,
+                    },
+                    
+                    "UserName": {
+                        required: true,
+                        NameRegex: true,
+                    },
+                    
+                    "mobileNo": {
+                        required: true,
+                        NameRegex: true,
+                    },
+                    
+                    "emailId": {
+							  required: true,
+                       		  NameRegex: true,
+							                       
+                    }
+                },
+                
+                messages: {
+                    "FirstName": {
+                        required: "You must enter your Frist Name",
+                        NameRegex: "Frist Name format not valid"
+                    },
+                    
+                    "LastName": {
+                        required: "You must enter your Last Name",
+                        NameRegex: "Last Name format not valid"
+                    },
+                    
+                    "UserName": {
+                        required: "You must enter your User Name",
+                        NameRegex: "User Name format not valid"
+                    },
+                    
+                    "mobileNo": {
+                        required: "You must enter your Mobile No.",
+                        NameRegex: "Mobile No. format not valid"
+                    },
+                    
+                    "emailId": {
+                        required: "You must enter your Email Id",
+                        NameRegex: "Email Id format not valid"
+                    }
+                }
+            });
+        });
+    </script>   
+     
 <section class="page-wrapper" role="main">
     <section id="dashboard">
             <!-- Nav Shortcuts -->
             <!-- /Nav Shortcuts -->
         </section>
-<?php if($this->session->flashdata('edit_success')){?>
-        <div class="notification success"
-        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
-
-                    <h4>Success</h4>
-
-            <p>User Name has been updated successfully</p>
-        </div>
-        <?php }if($this->session->flashdata('edit_unsuccess')){?>
+<?php if($this->session->flashdata('edit_unsuccess')){?>
             <div class="notification attention">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 
                     <h4>Failed</h4>
 
-                <p>There is some problem in updating User Name</p>
+                <p>Email id already exist you can not use this email id</p>
             </div>
         <?php } ?> 
     <article class="content-box minimizer">
@@ -33,72 +90,69 @@
         </header> 
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
-                <h3>Table with jQuery.dataTables</h3>
                     <!-- Sample jQuery DataTable  -->
                 <table class="datatable">                    
-                    <?php for($i = 0;$i<count($arrData);$i++)
-										{?>	
-											<center><h2 class="grid_12">Edit Details of <?php echo $arrData['0']['FirstName'];?></h2></center>
-                    <form class="validate" novalidate action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetails" method="post" enctype="multipart/form-data">
-								<input type = "hidden" name = "UserId" value= "<?php echo $arrData['0']['UserId'];?>"/>
-								<div class="content" style="width: 900px;">
-									<div>
-										<p>
-										<label for="file">
-										First Name:	
+                    
+											
+                    <form class="validate" name="frmadminstrator" id="frmadminstrator" novalidate="novalidate" action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetail" method="post" enctype="multipart/form-data">
+								<input type = "hidden" name = "UserId" value= "<?php echo $userDetails['UserId'];?>"/>
+								<fieldset>
+									 
+                                	<legend>Edit Details of <?php echo $userDetails['FirstName'];?></legend>
+
+								<div>
+									
+									<div style="padding: 10px; spacing: 10px">
+										<label style="padding: 15px;">
+										First Name	
 										</label>
-										<input name="FirstName" type="text" value="<?php echo $arrData['0']['FirstName'];?>" class="required" />
-										</p>
+										<input class="small required" name="FirstName" type="text" value="<?php echo $userDetails['FirstName'];?>" />									
 									</div>
 									
-									<div>
-										<p>
-										<label for="file">
-										Last Name:	
+									<div style="padding: 10px;">
+										<label style="padding: 15px;">
+										Last Name	
 										</label>
-										<input name="LastName" type="text" value="<?php echo $arrData['0']['LastName'];?>" class="required" />
-										</p>
+										<input class="small required" name="LastName" type="text" value="<?php echo $userDetails['LastName'];?>" />
 									</div>
 									
-									<div>
-										<p>
-										<label for="file">
-										User Name:	
+									<div style="padding: 10px;">
+										<label style="padding: 15px;">
+										User Name	
 										</label>
-										<input name="UserName" type="text" value="<?php echo $arrData['0']['UserName'];?>" class="required" />
-										</p>
+										<input class="small required" name="UserName" type="text" value="<?php echo $userDetails['UserName'];?>" />
+									
 									</div>
 									
-										<div>
-										<p>
-										<label for="file">
-										Mobile No:	
+									<div style="padding: 10px;">
+										<label style="padding: 10px;">
+										Mobile No	
 										</label>
-										<input name="mobileNo" type="text" value="<?php echo $arrData['0']['mobileNo'];?>" class="required" />
-										</p>
+										<label style="padding: 15px;">
+										<input class="small required" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
+										</abel>
 									</div>
 									
-										<div>
-										<p>
-										<label for="file">
+									<div style="padding: 10px;">
+										<label style="padding: 15px;">
 										Email Id:	
 										</label>
-										<input name="emailId" type="text" value="<?php echo $arrData['0']['emailId'];?>" class="required" />
-										</p>
+										<label style="padding: 15px;">
+										<input class="small required" name="emailId" type="text" value="<?php echo $userDetails['emailId'];?>" />
+										</label>
 									</div>
-															
+										<br>					
 								</div>
+								</fieldset>
 								<div class="actions" style="width: 920px;">
-									<div class="actions-left">
-										<input type="reset" />
-									</div>
-									<div class="actions-right">
-										<input type="submit" />
+									<div>
+										<input type="reset" class="button"/>
+										<input type="submit" value="Update User Name"name="cmdSubmit"/>
 									</div>
 								</div>
-							
+								
 						  </form>
-						  <?php } ?>
+						  
                    
                 </table>
             </div>
