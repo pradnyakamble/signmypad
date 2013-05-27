@@ -66,7 +66,7 @@
                                         <label>Pdf File Name</label>
                                         </dt>
                                         <dd>
-                                            <input type="text" class="small required" id="yardRegionName" value="<?php echo $pdfFileDetails['pdfFilename'];?>"
+                                            <input type="text" class="small required" id="pdfFileName" value="<?php echo $pdfFileDetails['pdfFilename'];?>"
                                             name="pdfFileName">
                                         </dd>
                                         <dt>
