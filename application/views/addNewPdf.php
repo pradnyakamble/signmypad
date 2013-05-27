@@ -68,6 +68,25 @@
                                     <dd>
                                        <input type="file" name="uploadfile" size="20" class="required" id ="file"/>
                                     </dd>
+                                    <dt>
+                                        <label>Select User</label>
+                                    </dt>
+                                    <dd>
+                                        <select name="User[]" class="small required" id="user" multiple="multiple">
+						<option value="" selected>select</option>
+                                                <?php foreach($mapUserToPdf as $mapuser) { 
+                                                echo ' <option value="'.$mapuser['UserId'].'" >'.$mapuser['FirstName'].' '.$mapuser['LastName'].'</option>';
+                                                  
+                                                } ?>
+                                        </select>
+                                    </dd>
+                                    <dt>
+                                        <label>Comment</label>
+                                    </dt>
+                                    <dd>
+                                        <textarea rows="4" cols="50" name="comment" class="small">
+                                        </textarea>
+                                    </dd>
                                     
                                 </dl>
                     </fieldset>

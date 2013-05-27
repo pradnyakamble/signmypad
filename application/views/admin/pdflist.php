@@ -60,6 +60,14 @@
 
             <p>Pdf file has been uploaded successfully</p>
         </div>
+    <?php } if($this->session->flashdata('add_unsuccess')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>There is some problem while uploading file . please try later .</p>
+        </div>
     <?php } ?>
     <article class="content-box minimizer">
         <header>

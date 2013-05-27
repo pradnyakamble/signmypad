@@ -94,7 +94,7 @@ class Pdfmanager extends CI_Controller{
      * @return	void
     */
    public function mappUserToPdf($pdfId){
-        $this->form_validation->set_rules('User', 'Select User', 'required');
+        $this->form_validation->set_rules('User[]', 'Select User', 'required');
         if ($this->form_validation->run() === FALSE){	
             $mapUserToPdf = $this->Pdfmanager_models->getUserNotMappedToPdf($pdfId);
             $data['mapUserToPdf'] = $mapUserToPdf;
@@ -126,21 +126,32 @@ class Pdfmanager extends CI_Controller{
                $pdf_files    = array('uploadfile'); // FILE INPUT NAME
                $PDFUpload    = $this -> UploadPDF($pdf_path, $pdf_files);
                if($PDFUpload){
-                   $addPdf = $this->Pdfmanager_models->addPdf();
-                   $retmsg = 1;
-                   $this->session->set_flashdata('add_success', $retmsg);
-                   redirect('admin/pdfmanager/index');
+                   $PdfId = $this->Pdfmanager_models->addPdf();
+                   if($PdfId !==False){
+                       if(isset($_POST['User']) && !empty($_POST['User'])){
+                        $msg = $this->Pdfmanager_models->setUserPdfAccess($PdfId);
+                       }
+                     $retmsg = 1;
+                     $this->session->set_flashdata('add_success', $retmsg);
+                     redirect('admin/pdfmanager/index');
+                   }else{
+                      $retmsg = 1;
+                      $this->session->set_flashdata('add_unsuccess', $retmsg);
+                      redirect('admin/pdfmanager/index'); 
+                   } 
                }else{
                 $retmsg = 1;
                 $this->session->set_flashdata('upload_fail', $retmsg);   
                }
            } 
        }else{
-           
+          $mapUserToPdf = $this->Pdfmanager_models->getUserNotMappedToPdf();
+          $data['mapUserToPdf'] = $mapUserToPdf;  
        }
+       
        $this->load->view('header');
        $this->load->view('footer');
-       $this->load->view('addNewPdf');
+       $this->load->view('addNewPdf',$data);
    }
    
     function UploadPDF($upload_path=array(),$files=array())
