@@ -82,10 +82,7 @@ class Pdfmanager extends CI_Controller{
         $this->load->view('header');
          $this->load->view('footer');
 	$this->load->view('editPdfDetails',$data);
-<<<<<<< HEAD
-       
-=======
->>>>>>> fad457ade9f3ec223f91502487a9b75a45b5b581
+
     }
     
     
