@@ -17,6 +17,22 @@ class Manageuser extends CI_Controller{
         $this->load->view('admin/manageuser',$data);
 		$this->load->view('footer');
 	}
+   
+       public function delManageUser($UserId){
+       	$Id = $_GET['UserId'];
+        if(isset($UserId) && $UserId!=''){
+            $data = $this->manageuser_models->getManageUsers($UserId);
+             if(empty($data)){
+                 $retmsg = $this->manageuser_models->delManageUser($UserId);
+                 $this->session->set_flashdata('del_success', $retmsg);
+                 redirect('admin/manageuser/');
+             }else{
+                $retmsg = 1;
+                $this->session->set_flashdata('del_unsuccess', $retmsg);
+                redirect('admin/manageuser/');
+             }
+        }
+    } 
 
 		public function editmanageuser()
 	{   

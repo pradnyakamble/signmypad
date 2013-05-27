@@ -15,34 +15,17 @@ class Manageuser_models extends CI_Model{
 		return $arrResult;
 	 }
 	 
-	/* 	function editmanageuser($id)
-    {  
-		$query = $this->db->get_where('Users',array('UserId' => $id));
-		//echo $this->db->last_query();
-		//exit;
-		$arrResult = $query->result_array();
-		return $arrResult;	
-		
-	}
-
-	function editmanageuserdetails()
-    {
-    	//echo "<pre>";
-		//print_r($_POST);
-		$id=$_POST['UserId'];
-		$data = array(
-		'FirstName' => $_POST['FirstName'],
-		'LastName' => $_POST['LastName'],
-		'UserName' => $_POST['UserName'],
-		'mobileNo' => $_POST['mobileNo'],
-		'emailId' => $_POST['emailId'],
-	   	);
-		$this->db->where('UserId', $id);
-		$this->db->update('Users', $data); 
-	}
-	
-	 */
-	 
+	   function getManageUsers($UserId){
+        $this->db->select('Users.UserId');
+        $this->db->from('Users');
+        $this->db->where('Users.Status','Active');
+        $this->db->where('Users.Status','1');
+        $this->db->where('Users.UserId',$UserId);
+        $query = $this->db->get();
+	//echo $this->db->last_query();
+        return $query->result_array();
+    }
+	   
 	   function editmanageuser($UserId){
         $this->db->select('Users.FirstName,Users.LastName,Users.UserName,Users.mobileNo,Users.emailId');
         $this->db->from('Users');
@@ -99,22 +82,18 @@ class Manageuser_models extends CI_Model{
       $result =  $this->db->delete('Users', array('UserId' => $UserId)); 
       return $result;
    }
-	 	 
-	 function addmanageuser(){
-	    $this->load->database();
-		$data = array(
-		          'FirstName'=>$this->input->post('FirstName'),
-				  'LastName'=>$this->input->post('LastName'),
-				  'UserName'=>$this->input->post('UserName'),
-				  'Password'=>$this->input->post('Password'),
-				  'Status'=>$this->input->post('Status'),
-				  'UserTypeId'=>$this->input->post('UserTypeId'),
-				  'mobileNo'=>$this->input->post('mobileNo'),
-				  'emailId'=>$this->input->post('emailId'),
-		        );
-		$result = $this->db->insert('Users',$data);
-		return $result;
-	  }
-
+		
+	   public function addManageUser(){
+	       $fileData = $_FILES;
+	       $fileName = substr($fileData['uploadfile']['name'],0,strpos($fileData['uploadfile']['name'],'.'));
+	       $userSessData = $this->session->userdata('userdata');
+	       $data = array(
+	        'pdfFilename' => $fileName,
+	        'CreatedBy' => $userSessData['user_id'],
+	       'status' =>'published'
+	       );
+	       $insertResult = $this->db->insert('pdf_resources', $data); 
+	       
+	   }
 	
 }    
