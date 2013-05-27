@@ -54,6 +54,7 @@ class Pdfmanager_models extends CI_Model{
         if ($pdfId) {
             $this->db->where('pdfFileId !=', $pdfId);
         }
+
         $this->db->like('pdfFilename',$pdfFileName, 'none');
         $query = $this->db->get('pdf_resources');
         return $query->result_array();
