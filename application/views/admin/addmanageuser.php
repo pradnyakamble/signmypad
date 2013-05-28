@@ -2,7 +2,7 @@
 <section class="page-wrapper" role="main">
     <article class="content-box minimizer">
         <header>	
-            <h2>Manage Pdf</h2>
+            <h2>Add New User</h2>
         </header>
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
