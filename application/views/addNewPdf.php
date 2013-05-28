@@ -66,7 +66,8 @@
                                         </dt>
 
                                     <dd>
-                                       <input type="file" name="uploadfile" size="20" class="required" id ="file"/>
+                                       <input type="file" name="uploadfile_1" size="20" class="required" id ="file"/>
+                                      <input type="file" name="uploadfile_2" size="20" class="required" id ="file"/>
                                     </dd>
                                     <dt>
                                         <label>Select User</label>

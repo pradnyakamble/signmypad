@@ -29,7 +29,7 @@ class Pdfmanager extends CI_Controller{
     *
     * Delete the yard city 
     * 
-    * @author   pradnya kamble
+    * @author   
     * @access	public
     * @return	void
     */
@@ -90,7 +90,7 @@ class Pdfmanager extends CI_Controller{
      * mappUserToPdf
      * 
      * allow the user(who have paid for that) to acccess pdf 
-     * @author   pradnya kamble
+     * @author   
      * @access	public
      * @return	void
     */
@@ -117,26 +117,42 @@ class Pdfmanager extends CI_Controller{
    
    public function addNewPdfFile(){
       
-       if(isset($_POST['Upload'])){
-           if(empty($_FILES['uploadfile']['name'])){
+       /*if(isset($_POST['Upload'])){
+           if(empty($_FILES['uploadfile_1']['name'])){
             $retmsg = 1;
             $this->session->set_flashdata('upload_fail', $retmsg);
            }else{
-               $path = './public/upload/';
-               $pdf_path    = array($path);
-               $pdf_files    = array('uploadfile'); // FILE INPUT NAME
-               $PDFUpload    = $this -> UploadPDF($pdf_path, $pdf_files);
-               if($PDFUpload){
-                   $insertResult = $this->Pdfmanager_models->addPdf();
+               echo "here";
+               $this -> load -> library('upload');
+               $config['allowed_types']= '*';
+               $config['upload_path'] = './public/upload/';
+               foreach ($_FILES as $key => $value){
+                    if (!empty($key['name'])){
+                         $this->upload->initialize($config);
+                        if (!$this->upload->do_upload($key)){
+                            $errors = $this->upload->display_errors();
+                            flashMsg($errors);
+                        }else{
+                            echo "<pre>";
+                            print_r($key);
+                            print_r($value);die;
+                        }
+                    }
+               }
+              
+               $fileDatas = $_FILES['uploadfile']['name'];
+               if($PDFUpload){  
+                   $fileName = substr($fileData,0,strpos($fileData,'.'));
+                   $insertResult = $this->Pdfmanager_models->addPdf($fileName);
                    if($insertResult !==False){
                      $retmsg = 1;
                      $this->session->set_flashdata('add_success', $retmsg);
                      redirect('admin/pdfmanager/index');
                    }else{
                       $retmsg = 1;
-                      $this->session->set_flashdata('add_unsuccess', $retmsg);
-                      redirect('admin/pdfmanager/index'); 
                    } 
+                   $this->session->set_flashdata('add_unsuccess', $retmsg);
+                   redirect('admin/pdfmanager/index'); 
                }else{
                 $retmsg = 1;
                 $this->session->set_flashdata('upload_fail', $retmsg);   
@@ -149,10 +165,48 @@ class Pdfmanager extends CI_Controller{
        
        $this->load->view('header');
        $this->load->view('footer');
+       $this->load->view('addNewPdf',$data);*/
+       if(isset($_POST['Upload'])){
+            if(empty($_FILES['uploadfile_1']['name'])){
+            $retmsg = 1;
+            $this->session->set_flashdata('upload_fail', $retmsg);
+           }else{
+               $this -> load -> library('upload');
+               $config['allowed_types']= '*';
+               $config['upload_path'] = './public/upload/';
+               $this->upload->initialize($config);
+              foreach ($_FILES as $key => $value){
+                if (!empty( $_FILES[$key]['name'])){
+                    if(!$this -> upload -> do_upload($key)){
+                        $this->upload->display_errors('<p>', '</p>');
+                    }
+                    else{
+                       $fileName = substr($_FILES[$key]['name'],0,strpos($_FILES[$key]['name'],'.'));
+                       $insertResult = $this->Pdfmanager_models->addPdf($fileName); 
+                       if($insertResult ===False){
+                          $retmsg = 1; 
+                          $this->session->set_flashdata('add_unsuccess', $retmsg);
+                          redirect('admin/pdfmanager/index');   
+                       }
+                    }
+                }
+              }
+              if($insertResult !==False){
+                $retmsg = 1;
+                $this->session->set_flashdata('add_success', $retmsg);
+                redirect('admin/pdfmanager/index');
+              }
+           }
+       }else{
+           $mapUserToPdf = $this->Pdfmanager_models->getUserNotMappedToPdf();
+          $data['mapUserToPdf'] = $mapUserToPdf;   
+       }
+        $this->load->view('header');
+       $this->load->view('footer');
        $this->load->view('addNewPdf',$data);
    }
    
-    function UploadPDF($upload_path=array(),$files=array())
+    /*function UploadPDF($upload_path=array(),$files=array())
     {
         $this -> load -> library('upload'); // moved outside loop
         $config['allowed_types']= '*';
@@ -160,7 +214,6 @@ class Pdfmanager extends CI_Controller{
         $data[]            = array();
                         
         $count_files         = count($files);
-                        
         for($i = 0; $i < $count_files; $i++)
         {
             $config['upload_path'] = $upload_path[$i];
@@ -173,15 +226,15 @@ class Pdfmanager extends CI_Controller{
                 }
                 else
                 {
-                        $data[$i]     = array('upload_data' => $this->upload->data());
-                    $pdfPath[$i]     = $data[$i]['upload_data']['full_path'];
+                    $data[$i]     =  array('upload_data' => $this->upload->data());
+                    $pdfPath[$i]  =  $data[$i]['upload_data']['full_path'];
                                             
-                    return $pdfPath;
+                   // return $pdfPath;
                 }
             }
         }
         return FALSE;
-    }  
+    } */ 
     
          
     
