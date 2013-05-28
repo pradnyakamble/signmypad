@@ -64,10 +64,13 @@
                                         <dt>
                                             <label>Select File</label>
                                         </dt>
-
+                                    
                                     <dd>
-                                       <input type="file" name="uploadfile_1" size="20" class="required" id ="file"/>
-                                      <input type="file" name="uploadfile_2" size="20" class="required" id ="file"/>
+                                        <div id ="FileUploader">
+                                            <input type="hidden" value ='1' name="fileuploadercount" id ="fileuploadercount">
+                                       <input type="file" name="uploadfile_1" size="20" class="required" id ="file"/><br/>
+                                        
+                                        </div>
                                     </dd>
                                     <dt>
                                         <label>Select User</label>
@@ -92,6 +95,7 @@
                                 </dl>
                     </fieldset>
                     <input type="submit" value="Upload" name="Upload">
+                     <input type="button" value="Add More Files" name="addMore" onclick="uploadMoreFile()">
                 </form>
             </section>
         </article>
@@ -99,3 +103,23 @@
     <!-- /Main Content -->
 <a id="toTop" href="#" style="display: none;"><span id="toTopHover"></span>To Top</a>
     <div></div>
+    <script type="text/javascript">
+        function uploadMoreFile(){
+              var count = $('#fileuploadercount').val();
+            count++;
+            $('#fileuploadercount').val(count);
+            var name = "uploadfile_"+count;
+            var divId = "uplad_"+count;
+            $('#FileUploader').append('<div id="'+divId+'"><input type="file" name="'+name+'" size="20" class="required" id ="name"/></t><input type="button" id="'+count+'" value ="X" onclick ="deleteFileInput(this.id)" name="cancelFile"></div>');
+           
+        }
+        
+        
+        function deleteFileInput(id){
+            var count = $('#fileuploadercount').val();
+            count--;
+            $('#fileuploadercount').val(count);
+            var divId = "uplad_"+ id;
+            $('#'+divId).remove();
+        }
+    </script>
