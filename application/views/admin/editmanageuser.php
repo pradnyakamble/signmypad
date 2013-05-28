@@ -1,7 +1,9 @@
 <!-- Full width content box with minimizer -->
 
 <script type="text/javascript">
+
        $(document).ready(function () {
+       	
             $.validator.addMethod("NameRegex", function (value, element) {
                 return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
             }, "city name must contain only letters, numbers, or dashes.");
@@ -101,14 +103,6 @@
             <!-- Nav Shortcuts -->
             <!-- /Nav Shortcuts -->
         </section>
-<?php if($this->session->flashdata('edit_unsuccess')){?>
-            <div class="notification attention">	<a href="#" class="close-notification " title="Hide Notification">x</a>
-
-                    <h4>Failed</h4>
-
-                <p>Email id already exist you can not use this email id</p>
-            </div>
-        <?php } ?> 
     <article class="content-box minimizer">
         <header>	
             <h2>Manage User</h2>
@@ -120,15 +114,22 @@
             </nav>
         </header> 
         <section>
-            <div id="tab1" class="tab default-tab" style="display: block;">
+            
                     <!-- Sample jQuery DataTable  -->
-                <table class="datatable">                    
+             
                     
 											
                     <form class="validate" name="frmadminstrator" id="frmadminstrator" action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetail" method="post" enctype="multipart/form-data">
 								<input type = "hidden" name = "UserId" value= "<?php echo $userDetails['UserId'];?>"/>
 								<fieldset>
-									 
+									 <?php if($this->session->flashdata('edit_unsuccess')){?>
+            <div class="notification attention">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Failed</h4>
+
+                <p>Email id already exist you can not use this email id</p>
+            </div>
+        <?php } ?> 
                                 	<legend>Edit Details of <?php echo $userDetails['FirstName'];?></legend>
 
 								<div>
@@ -181,12 +182,11 @@
 										<input type="submit" value="Update User Name" name="cmdSubmit"/>
 									</div>
 								</div>
-								
 						  </form>
 						  
                    
-                </table>
-            </div>
+                
+           
         </section>	
     </article>
 </section>    

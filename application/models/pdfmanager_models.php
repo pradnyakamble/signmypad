@@ -44,7 +44,7 @@ class Pdfmanager_models extends CI_Model{
      *
      * checks pdf file name already exist or not
      * 
-     * @author   pradnya kamble
+     * @author  
      * @access	public
      * @return	array
      */
@@ -64,7 +64,7 @@ class Pdfmanager_models extends CI_Model{
      *
      * Set Pdf data 
      * 
-     * @author   pradnya kamble
+     * @author   
      * @access	public
      * @return	int
      */
@@ -80,7 +80,7 @@ class Pdfmanager_models extends CI_Model{
      * delPdfFile
      * 
      * delete pdf file
-     * @author pradnya kamble
+     * @author 
      * @access public
      * @return int 
      */ 
@@ -93,7 +93,7 @@ class Pdfmanager_models extends CI_Model{
     * getUserNotMappedToPdf
     * 
     * get list of user who have paid for pdf but not having access to the file
-    * @author pradnya kamble
+    * @author 
     * @access public
     * @return int 
     */
@@ -152,11 +152,11 @@ class Pdfmanager_models extends CI_Model{
        
    }
    
-   public function addPdf(){
+   public function addPdf($fileName){
       // echo "<pre>";
       // print_r($_POST);die;
-       $fileData = $_FILES;
-       $fileName = substr($fileData['uploadfile']['name'],0,strpos($fileData['uploadfile']['name'],'.'));
+      
+      
        $userSessData = $this->session->userdata('userdata');
        $this->db->trans_start();
        $data = array(
