@@ -10,6 +10,7 @@ class Manageuser_models extends CI_Model{
     
     	 public function manageuser()
 	 {
+	 	$this->db->where('Status', 'Active');  
 		$query = $this->db->get('Users');
 		$arrResult = $query->result_array();
 		return $arrResult;
@@ -72,30 +73,26 @@ class Manageuser_models extends CI_Model{
         			  'LastName' => $_POST['LastName'],
 				      'UserName' => $_POST['UserName'],
 					  'mobileNo' => $_POST['mobileNo'],
-					  'emailId' => $_POST['emailId'],);
+					  'emailId' => $_POST['emailId']);
         $this->db->where('UserId', $UserId);
         $result = $this->db->update('Users', $data);
        return $result;
     }	 
 	   
 	    public function delManageUser($UserId){
-      $result =  $this->db->delete('Users', array('UserId' => $UserId)); 
+	    	   $data = array(
+					  'Status' => 'Deleted');
+        $this->db->where('UserId', $UserId);
+        $result = $this->db->update('Users', $data);
+    //  $result =  $this->db->delete('Users', array('UserId' => $UserId)); 
       return $result;
    }
 		
-	   public function addManageUser(){
-	       $data = array(
-	       'FirstName' =>'FirstName',
-	       'LastName' =>'LastName',
-	       'UserName' =>'UserName',
-	       'Password' =>'Password',
-	       'status' =>'published',
-	       'UserTypeId' =>'UserTypeId',
-	       'mobileNo' =>'mobileNo',
-	       'emailId' =>'emailId',
-	       );
-	       $insertResult = $this->db->insert('Users', $data); 
-	       
+		
+		
+	   public function addManageUser($userDetails){
+	       $result = $this->db->insert('Users', $userDetails); 
+		   return $result;	       
 	   }
 	
 }    

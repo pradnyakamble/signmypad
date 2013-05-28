@@ -6,17 +6,16 @@
         </header>
         <section>
             <div id="tab1" class="tab default-tab" style="display: block;">
-                <h3>Table with jQuery.dataTables</h3>
                     <!-- Sample jQuery DataTable  -->
                 <table class="datatable">                    
-                    <form action = "<?php echo base_url(); ?>admin/manageuser/addmanageuser" method = "POST" enctype="multipart/form-data">
+                    <form action = "<?php echo base_url(); ?>admin/manageuser/addManageUser/" method = "POST" enctype="multipart/form-data">
 										<table id="table-example" class="table">
 											<tr>
 												<td></br>
 													<center>First Name : </center>
 												</td>
 												<td>
-													<input type = "text" name = "FirstName" id = "FirstName"/>
+													<input class="small required" type = "text" name = "FirstName" id = "FirstName"/>
 												</td>
 											</tr>
 											
@@ -25,7 +24,7 @@
 													<center>Last Name : </center>
 												</td>
 												<td>
-													<input type = "text" name = "LastName" id = "LastName"/>
+													<input class="small required" type = "text" name = "LastName" id = "LastName"/>
 												</td>
 											</tr>
 											
@@ -34,7 +33,7 @@
 													<center>User Name : </center>
 												</td>
 												<td>
-													<input type = "text" name = "UserName" id = "UserName"/>
+													<input class="small required" type = "text" name = "UserName" id = "UserName"/>
 												</td>
 											</tr>
 											
@@ -43,7 +42,7 @@
 													<center>Password : </center>
 												</td>
 												<td>
-													<input type = "text" name = "Password" id = "Password"/>
+													<input class="small required" type = "text" name = "Password" id = "Password"/>
 												</td>
 											</tr>
 											
@@ -52,7 +51,7 @@
 													<center>Status : </center>
 												</td>
 												<td>
-													<input type = "text" name = "Status" id = "Status"/>
+													<input class="small required" type = "text" name = "Status" id = "Status"/>
 												</td>
 											</tr>
 											
@@ -61,7 +60,13 @@
 													<center>User Type Id : </center>
 												</td>
 												<td>
-													<input type = "text" name = "UserTypeId" id = "UserTypeId"/>
+													<!-- <input type = "text" name = "UserTypeId" id = "UserTypeId"/> -->
+													<select class="small required" name="UserTypeId" value="<?=$userDetails['UserTypeId'] ?>">
+									                  <option></option>
+									                  <option>1</option>
+									                  <option>2</option>
+									                  <option>3</option>
+									                </select>
 												</td>
 											</tr>
 											
@@ -70,7 +75,7 @@
 													<center>Mobile No. : </center>
 												</td>
 												<td>
-													<input type = "text" name = "mobileNo" id = "mobileNo"/>
+													<input class="small required" type = "text" name = "mobileNo" id = "mobileNo"/>
 												</td>
 											</tr>
 											
@@ -79,12 +84,13 @@
 													<center>EmailId : </center>
 												</td>
 												<td>
-													<input type = "text" name = "emailId" id = "emailId"/>
+													<input class="small required" type = "text" name = "emailId" id = "emailId"/>
 												</td>
 											</tr>
 									
 											<tr>
 												<td colspan = "2">
+													<input type="reset" class="button"/>
 													<input type="submit" name="submit" value="Add New Uaer">
 												</td>
 											</tr>
