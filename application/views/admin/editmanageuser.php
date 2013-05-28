@@ -1,7 +1,6 @@
 <!-- Full width content box with minimizer -->
 
 <script type="text/javascript">
-$.noConflict();
        $(document).ready(function () {
             $.validator.addMethod("NameRegex", function (value, element) {
                 return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
@@ -10,27 +9,27 @@ $.noConflict();
                 rules: {
                     "FirstName": {
                         required: true,
-                        NameRegex: true,
+                        NameRegex: true
                     },
                     
                     "LastName": {
                         required: true,
-                        NameRegex: true,
+                        NameRegex: true
                     },
                     																	
                     "UserName": {
                         required: true,
-                        NameRegex: true,
+                        NameRegex: true
                     },
                     
                     "mobileNo": {
                         required: true,
-                        NameRegex: true,
+                        NameRegex: true
                     },
                     
                     "emailId": {
 							  required: true,
-                       		  NameRegex: true,
+                       		  NameRegex: true
 							                       
                     }
                 },
@@ -64,8 +63,7 @@ $.noConflict();
             });
         });
     </script>   
-    
- 
+
    <!--
    <script type="text/javascript">
         $().ready(function() {
@@ -127,7 +125,7 @@ $.noConflict();
                 <table class="datatable">                    
                     
 											
-                    <form class="validate" name="frmadminstrator" id="frmadminstrator" novalidate="novalidate" action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetail" method="post" enctype="multipart/form-data">
+                    <form class="validate" name="frmadminstrator" id="frmadminstrator" action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetail" method="post" enctype="multipart/form-data">
 								<input type = "hidden" name = "UserId" value= "<?php echo $userDetails['UserId'];?>"/>
 								<fieldset>
 									 
@@ -180,7 +178,7 @@ $.noConflict();
 								<div class="actions" style="width: 920px;">
 									<div>
 										<input type="reset" class="button"/>
-										<input type="submit" value="Update User Name"name="cmdSubmit"/>
+										<input type="submit" value="Update User Name" name="cmdSubmit"/>
 									</div>
 								</div>
 								

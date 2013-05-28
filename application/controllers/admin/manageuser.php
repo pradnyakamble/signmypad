@@ -100,7 +100,7 @@ class Manageuser extends CI_Controller{
               $userDetails['FirstName'] = $_POST['FirstName'];
 			  $userDetails['LastName'] = $_POST['LastName'];
 			  $userDetails['UserName'] = $_POST['UserName'];
-			  $userDetails['Password'] = $_POST['Password'];
+			  $userDetails['Password'] = md5($_POST['Password']);
 			  $userDetails['Status'] = $_POST['Status'];
 			  $userDetails['UserTypeId'] = $_POST['UserTypeId'];
 			  $userDetails['mobileNo'] = $_POST['mobileNo'];
