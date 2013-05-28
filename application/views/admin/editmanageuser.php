@@ -1,5 +1,5 @@
 <!-- Full width content box with minimizer -->
-   
+
 <script type="text/javascript">
 $.noConflict();
        $(document).ready(function () {
@@ -17,7 +17,7 @@ $.noConflict();
                         required: true,
                         NameRegex: true,
                     },
-                    
+                    																	
                     "UserName": {
                         required: true,
                         NameRegex: true,
@@ -64,7 +64,40 @@ $.noConflict();
             });
         });
     </script>   
-     
+    
+ 
+   <!--
+   <script type="text/javascript">
+        $().ready(function() {
+            // validate the comment form when it is submitted
+            $("#frmadminstrator").validate();
+
+            // validate signup form on keyup and submit
+            $("#frmadminstrator").validate({
+                rules: {
+                    FirstName: "required",
+                    LastName: "required",
+                    UserName: "required",
+                    mobileNo: "required",
+
+                    emailId: {
+                        required: true,
+                        email: true
+                    },                },
+                messages: {
+                    FirstName: "You must enter your Frist Name",
+                    LastName: "You must enter your Last Name",
+                    UserName: "You must enter your User Name",
+                    mobileNo: "You must enter your Mobile No.",
+
+                    email: "Please enter a valid email address"
+                    
+                }
+            });
+
+        });
+    </script>
+    -->
 <section class="page-wrapper" role="main">
     <section id="dashboard">
             <!-- Nav Shortcuts -->

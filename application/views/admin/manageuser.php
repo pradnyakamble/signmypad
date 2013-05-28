@@ -32,21 +32,23 @@
 
             <p>User data is Deleted Successfully !!</p>
         </div>
-           <?php } if($this->session->flashdata('allowAccess_success')){?>
-        <div class="notification success"
+       
+         <?php } if($this->session->flashdata('add_success')) { ?>
+     <div class="notification success"
         id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 
                     <h4>Success</h4>
 
             <p>User Data hase been successfully added in Database !!</p>
         </div>
-    <?php } if($this->session->flashdata('allowAccess_unsuccess')) { ?>
+  
+    <?php } if($this->session->flashdata('add_unsuccess')) { ?>
      <div class="notification success"
         id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 
                     <h4>Success</h4>
 
-            <p>There is some problem please try later.</p>
+            <p>There is some problem please try later !!</p>
         </div>
   
         <?php } ?>

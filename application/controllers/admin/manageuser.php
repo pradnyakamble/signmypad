@@ -52,7 +52,7 @@ class Manageuser extends CI_Controller{
 		$this->form_validation->set_rules('LastName', 'Last Name', 'required');
 		$this->form_validation->set_rules('UserName', 'User Name', 'required');
 		$this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
-		$this->form_validation->set_rules('emailId', 'Email Id', 'required');
+		$this->form_validation->set_rules('emailId', 'Email Id', 'required' );
         if ($this->form_validation->run() === FALSE){
         	 $data['userId']=$userid;
             if(!is_numeric($data['userId'] )){
@@ -92,29 +92,38 @@ class Manageuser extends CI_Controller{
 	
 	
 	   public function addManageUser(){
-      
        if(isset($_POST['UserName'])){
            if(empty($_POST['UserName'])){
             $retmsg = 1;
             $this->session->set_flashdata('upload_fail', $retmsg);
            }else{
-               $userDetails   = array('FirstName','LastName','UserName', 'Password','status','UserTypeId','mobileNo','emailId'); // FILE INPUT NAME
-              if($userDetails){
-                   $addManageUser = $this->manageuser_models->addManageUser();
+              $userDetails['FirstName'] = $_POST['FirstName'];
+			  $userDetails['LastName'] = $_POST['LastName'];
+			  $userDetails['UserName'] = $_POST['UserName'];
+			  $userDetails['Password'] = $_POST['Password'];
+			  $userDetails['Status'] = $_POST['Status'];
+			  $userDetails['UserTypeId'] = $_POST['UserTypeId'];
+			  $userDetails['mobileNo'] = $_POST['mobileNo'];
+			  $userDetails['emailId'] = $_POST['emailId'];			 
+              $addManageUser = $this->manageuser_models->addManageUser($userDetails);
+				  if($addManageUser){
+				  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
+                        $msg = $this->manageuser_models->addManageUser($UserId);
+                       }
                    $retmsg = 1;
                    $this->session->set_flashdata('add_success', $retmsg);
                    redirect('admin/manageuser/');
                }else{
-                $retmsg = 1;
-                $this->session->set_flashdata('upload_fail', $retmsg);   
+                  $retmsg = 1;
+                  $this->session->set_flashdata('add_unsuccess', $retmsg);
+                  redirect('admin/manageuser/');    
                }
            } 
        }else{
-           
-       }
        $this->load->view('header');
        $this->load->view('footer');
-       $this->load->view('admin/addManageUser');
+       $this->load->view('admin/addmanageuser');
+       }
    }
 
 }    

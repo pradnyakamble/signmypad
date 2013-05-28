@@ -55,7 +55,7 @@
 	<script src="<?php echo base_url(); ?>public/js/script.js"></script>
    <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
 </head>
-<body>
+<body>	
 
 	<!-- Muon jQuery Sticky Dropdown Menu 1.0 -->
 	<header class="muon">
