@@ -52,12 +52,10 @@
                     
                     "mobileNo": {
                         required: "You must enter your Mobile No.",
-                        NameRegex: "Mobile No. format not valid"
                     },
                     
                     "emailId": {
                         required: "You must enter your Email Id",
-                        NameRegex: "Email Id format not valid"
                     }
                 }
             });

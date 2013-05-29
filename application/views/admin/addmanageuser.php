@@ -74,17 +74,15 @@
                     
                     "UserTypeId": {
                         required: "You must selest atlist one User Type Id",
-                        NameRegex: "UserTypeId format not valid"
                     },
                     
                     "mobileNo": {
                         required: "You must enter your Mobile No.",
-                        NameRegex: "Mobile No. format not valid"
                     },
                     
                     "emailId": {
                         required: "You must enter your Email Id",
-                         NameRegex: "Email Id format not valid"
+                         
                     }
                 }
             });

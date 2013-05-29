@@ -102,13 +102,11 @@ class Manageuser extends CI_Controller{
 			  $this->form_validation->set_rules('UserTypeId', 'UserTypeId', 'required');
 			  $this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
 			  $this->form_validation->set_rules('emailId', 'Email Id', 'required');
-			 // $this->form_validation->set_rules('mobileNo', 'Mobile No', 'required|integer|max_length[10]');
-			 //$this->form_validation->set_rules('emailId', 'Email Id', 'required|valid_email|is_unique[Users.emailId]');
 			  
 			  if($this->form_validation->run() === FALSE){
 			  	 $this->load->view('header');
-       $this->load->view('footer');
-			  	$this->load->view('admin/addmanageuser');
+      			 $this->load->view('footer');
+			     $this->load->view('admin/addmanageuser');
 			  }else{
 			  	$userDetails['FirstName'] = $_POST['FirstName'];
 			  $userDetails['LastName'] = $_POST['LastName'];
