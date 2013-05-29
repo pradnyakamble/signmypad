@@ -94,55 +94,75 @@
         });
     </script>   
 <section class="page-wrapper" role="main">
+	  <section id="dashboard"></section>
+        <script type="text/javascript">
+            
+        </script>
     <article class="content-box minimizer">
         <header>	
-            <h2>Add New User</h2>
+            <h2 style="padding-right: 90px;">Add New User</h2>
+            
+             <nav>
+                    <ul class="button-switch">
+                        <li><a href="<?php echo base_url(); ?>admin/manageuser"
+                            class="button">User Manage List</a>
+                        </li>
+                    </ul>
+                </nav>	
+                <a style="display: block; left: 163px;" href="#" class="content-box-minimizer"
+                title="Toggle Content Block">Toggle</a>
+				<a title="Toggle Content Block"
+                class="content-box-minimizer" href="#" style="display: block; left: 163px;">Toggle</a>
         </header>
         <section>
-            <div id="tab1" class="tab default-tab" style="display: block;">
-                    <!-- Sample jQuery DataTable  -->
-                <table class="datatable">                    
+                       <?php
+                     // echo validation_errors();					   
+                       ?>       
                     <form action = "<?php echo base_url(); ?>admin/manageuser/addManageUser/" method = "POST" enctype="multipart/form-data">
-										<table id="table-example" class="table">
+										<table>
 											<tr>
-												<td></br>
-													<center>First Name : </center>
+												<td>
+													<label>First Name : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "FirstName" id = "FirstName"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('FirstName') ;?></label>
 												</td>
 											</tr>
 											
 											<tr>
 												<td></br>
-													<center>Last Name : </center>
+													<label>Last Name : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "LastName" id = "LastName"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('LastName') ;?></label>
 												</td>
 											</tr>
 											
 											<tr>
 												<td></br>
-													<center>User Name : </center>
+													<label>User Name : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "UserName" id = "UserName"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('UserName') ;?></label>
 												</td>
 											</tr>
 											
 											<tr>
 												<td></br>
-													<center>Password : </center>
+													<label>Password : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "Password" id = "Password"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('Password') ;?></label>
 												</td>
 											</tr>
 											
 												<tr>
 												<td></br>
-													<center>Status : </center>
+													<label>Status : </label>
 												</td>
 												<td>	
 													<select class="small required" name="Status" value="<?php $userDetails['Status'] ;?>">
@@ -150,12 +170,13 @@
 									                  <option value="Active">Active</option>
 									                  <option value="Inactive">Inactive</option>
 									                </select>
+									                <label class="error" for="file" generated="true"><?php echo form_error('Status') ;?></label>
 												</td>
 											</tr>
 											
 												<tr>
 												<td></br>
-													<center>User Type Id : </center>
+													<label>User Type Id : </label>
 												</td>
 												<td>
 													<select class="small required" name="UserTypeId" value="<?php $userDetails['UserTypeId'] ;?>">
@@ -164,24 +185,27 @@
 									                  <option value="2">Admin</option>
 									                  <option value ="3">User</option>
 									                </select>
+									                <label class="error" for="file" generated="true"><?php echo form_error('UserTypeId') ?></label>
 												</td>
 											</tr>
 											
 												<tr>
 												<td></br>
-													<center>Mobile No. : </center>
+													<label>Mobile No. : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "mobileNo" id = "mobileNo"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('mobileNo') ?></label>
 												</td>
 											</tr>
 											
 												<tr>
 												<td></br>
-													<center>EmailId : </center>
+													<label>Email Id : </label>
 												</td>
 												<td>
 													<input class="small required" type = "text" name = "emailId" id = "emailId"/>
+													<label class="error" for="file" generated="true"><?php echo form_error('emailId') ?></label>
 												</td>
 											</tr>
 									
@@ -194,9 +218,10 @@
 											
 										</table>
 									</form> 
-                   
-                </table>
-            </div>
+           
         </section>	
     </article>
 </section>    
+    <!-- /Main Content -->
+<a id="toTop" href="#" style="display: none;"><span id="toTopHover"></span>To Top</a>
+    <div></div>
