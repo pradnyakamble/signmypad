@@ -4,7 +4,7 @@
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
-	<title>Tachyon Administration Template</title>
+	<title>SignMyPdf Administration Template</title>
 	
 	<meta charset="utf-8">
 	<meta name="description" content="">
@@ -56,7 +56,7 @@
    <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
 </head>
 <body>	
-
+   
 	<!-- Muon jQuery Sticky Dropdown Menu 1.0 -->
 	<header class="muon">
 	
@@ -105,7 +105,7 @@
 			
 			<!-- User list -->
 			<ul class="muon-user-list">
-				<li class="muon-user-data">Welcome, <a href="#">David</a></li>
+				<li class="muon-user-data">Welcome, <a href="#"><?php echo $currentUser;   ?></a></li>
 				<li><a class="muon-signup" title="Messages" href="#">Messages</a></li>
 				<li><a class="muon-settings" title="Settings" href="#">Settings</a></li>
                                 <li><a class="muon-logout" title="Logout" href="<?php echo base_url();?>admin/signout">Logout</a></li>

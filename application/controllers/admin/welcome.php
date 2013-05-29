@@ -44,8 +44,10 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-            $this->load->view('header');
+	{   
+            $userSessData = $this->session->userdata('userdata');
+            $data['currentUser'] = $userSessData['user_fname'].' '.$userSessData['user_lname'];
+            $this->load->view('header',$data);
             $this->load->view('admin/welcome_message');
             $this->load->view('footer');
 	}

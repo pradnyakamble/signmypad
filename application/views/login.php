@@ -43,11 +43,13 @@
 <body class="login">
     <div class="login-wrapper">
     <!-- Notification -->
+      <?php if($this->session->flashdata('message')){ ?>
         <div class="notification error">
             <a href="#" class="close-notification tooltip" title="Hide Notification">x</a>
             <h4>Error notification</h4>
             <p><?php echo $this->session->flashdata('message'); ?></p>
         </div>
+    <?php } ?>
         <!-- /Notification -->
         <!-- Full width content box -->
         <article class="content-box minimizer">
