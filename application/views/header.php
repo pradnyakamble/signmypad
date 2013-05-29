@@ -105,7 +105,8 @@
 			
 			<!-- User list -->
 			<ul class="muon-user-list">
-				<li class="muon-user-data">Welcome, <a href="#"><?php echo $currentUser;   ?></a></li>
+				<li class="muon-user-data">Welcome, <a href="#"><?php $userSessData = $this->session->userdata('userdata');
+        echo  $userSessData['user_fname'].' '.$userSessData['user_lname']; ?></a></li>
 				<li><a class="muon-signup" title="Messages" href="#">Messages</a></li>
 				<li><a class="muon-settings" title="Settings" href="#">Settings</a></li>
                                 <li><a class="muon-logout" title="Logout" href="<?php echo base_url();?>admin/signout">Logout</a></li>
