@@ -38,6 +38,9 @@
                     
                     "mobileNo": {
                         required: true,
+                        digits : true,
+			            minlength : 10,
+			            maxlength : 13
                     },
                     
                     "emailId": {
@@ -78,6 +81,9 @@
                     
                     "mobileNo": {
                         required: "You must enter your Mobile No.",
+                        digits : 'Please enter numbers only',
+			            minlength : 'Please enter a Mobile No. (10 digits)',
+			            maxlength : 'Please enter a Mobile No. (13 digits)'
                     },
                     
                     "emailId": {
