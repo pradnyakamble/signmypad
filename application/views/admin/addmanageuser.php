@@ -34,17 +34,14 @@
                     
                     "UserTypeId": {
                         required: true,
-                        NameRegex: true
                     },
                     
                     "mobileNo": {
                         required: true,
-                        NameRegex: true
                     },
                     
                     "emailId": {
 							  required: true,
-                       		  NameRegex: true
 							                       
                     }
                 },
@@ -76,7 +73,7 @@
                     },
                     
                     "UserTypeId": {
-                        required: "You must enter your UserTypeId",
+                        required: "You must selest atlist one User Type Id",
                         NameRegex: "UserTypeId format not valid"
                     },
                     
@@ -87,12 +84,17 @@
                     
                     "emailId": {
                         required: "You must enter your Email Id",
-                        NameRegex: "Email Id format not valid"
+                         NameRegex: "Email Id format not valid"
                     }
                 }
             });
         });
     </script>   
+    <script>
+     $.validator.addMethod("NameRegex", function (value, element) {
+                return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
+            }, "city name must contain only letters, numbers, or dashes.");
+    </script>
 <section class="page-wrapper" role="main">
 	  <section id="dashboard"></section>
         <script type="text/javascript">
@@ -115,110 +117,119 @@
                 class="content-box-minimizer" href="#" style="display: block; left: 163px;">Toggle</a>
         </header>
         <section>
-                       <?php
-                     // echo validation_errors();					   
-                       ?>       
-                    <form action = "<?php echo base_url(); ?>admin/manageuser/addManageUser/" method = "POST" enctype="multipart/form-data">
-										<table>
-											<tr>
-												<td>
+           
+             <form name="frmadminstrator" id="frmadminstrator" action = "<?php echo base_url(); ?>admin/manageuser/addManageUser/" method = "POST" enctype="multipart/form-data">
+										
+										   <?php $msg=validation_errors(); if(!empty($msg)){ ?>
+                            <div class="notification error">	<a title="Hide Notification" class="close-notification " href="#">x</a>
+
+                                	<h5><?php echo $msg ?></h5>
+
+                            </div>
+                            <?php } ?> 
+										 
+										  <fieldset>
+											<dl>
+												<dt>
 													<label>First Name : </label>
-												</td>
-												<td>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
 													<input class="small required" type = "text" name = "FirstName" id = "FirstName"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('FirstName') ;?></label>
-												</td>
-											</tr>
-											
-											<tr>
-												<td></br>
+													</div>
+												</dd>
+										
+												<dt>
 													<label>Last Name : </label>
-												</td>
-												<td>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
 													<input class="small required" type = "text" name = "LastName" id = "LastName"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('LastName') ;?></label>
-												</td>
-											</tr>
+													</div>
+												</dd>
 											
-											<tr>
-												<td></br>
+												<dt>
 													<label>User Name : </label>
-												</td>
-												<td>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
 													<input class="small required" type = "text" name = "UserName" id = "UserName"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('UserName') ;?></label>
-												</td>
-											</tr>
+													</div>
+												</dd>
 											
-											<tr>
-												<td></br>
+												<dt>
 													<label>Password : </label>
-												</td>
-												<td>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
 													<input class="small required" type = "text" name = "Password" id = "Password"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('Password') ;?></label>
-												</td>
+													</div>
+												</dd>
 											</tr>
 											
 												<tr>
-												<td></br>
+												<dt>
 													<label>Status : </label>
-												</td>
-												<td>	
+												</dt>
+												<dd>	
+													<div id ="FileUploader">
 													<select class="small required" name="Status" value="<?php $userDetails['Status'] ;?>">
 									                  <option></option>
 									                  <option value="Active">Active</option>
 									                  <option value="Inactive">Inactive</option>
 									                </select>
 									                <label class="error" for="file" generated="true"><?php echo form_error('Status') ;?></label>
-												</td>
-											</tr>
+									                </div>
+												</dd>
 											
-												<tr>
-												<td></br>
+												<dt>
 													<label>User Type Id : </label>
-												</td>
-												<td>
-													<select class="small required" name="UserTypeId" value="<?php $userDetails['UserTypeId'] ;?>">
+												</dt>
+												<dd>
+													<div id ="FileUploader">
+													<select class="small required UserTypeId" name="UserTypeId" value="<?php $userDetails['UserTypeId'] ;?>">
 									                  <option></option>
 									                  <option value="1">SuperAdmin</option>
 									                  <option value="2">Admin</option>
 									                  <option value ="3">User</option>
 									                </select>
 									                <label class="error" for="file" generated="true"><?php echo form_error('UserTypeId') ?></label>
-												</td>
+									                </div>
+												</dd>
 											</tr>
 											
 												<tr>
-												<td></br>
+												<dt>
 													<label>Mobile No. : </label>
-												</td>
-												<td>
-													<input class="small required" type = "text" name = "mobileNo" id = "mobileNo"/>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
+													<input class="small required mobile" type = "text" name = "mobileNo" id = "mobileNo"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('mobileNo') ?></label>
-												</td>
-											</tr>
+													</div>
+												</dd>
 											
-												<tr>
-												<td></br>
+												<dt>
 													<label>Email Id : </label>
-												</td>
-												<td>
-													<input class="small required" type = "text" name = "emailId" id = "emailId"/>
+												</dt>
+												<dd>
+													<div id ="FileUploader">
+													<input class="small required email" type = "text" name = "emailId" id = "emailId"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('emailId') ?></label>
-												</td>
-											</tr>
-									
-											<tr>
-												<td colspan = "2">
+													</div>
+												</dd>
+												
+											</dl>
+										  </fieldset>
+												
 													<input type="reset" class="button"/>
 													<input type="submit" name="submit" value="Add New Uaer">
-												</td>
-											</tr>
-											
-										</table>
+												
 									</form> 
-           
         </section>	
     </article>
 </section>    

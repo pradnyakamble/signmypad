@@ -26,13 +26,11 @@
                     
                     "mobileNo": {
                         required: true,
-                        NameRegex: true
                     },
                     
                     "emailId": {
 							  required: true,
-                       		  NameRegex: true
-							                       
+                       		       
                     }
                 },
                 
@@ -161,7 +159,7 @@
 										Mobile No	
 										</label>
 										<label style="padding: 15px;">
-										<input class="small required" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
+										<input class="small required mobile" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
 										</abel>
 									</div>
 									
@@ -170,7 +168,7 @@
 										Email Id:	
 										</label>
 										<label style="padding: 15px;">
-										<input class="small required" name="emailId" type="text" value="<?php echo $userDetails['emailId'];?>" />
+										<input class="small required email" name="emailId" type="text" value="<?php echo $userDetails['emailId'];?>" />
 										</label>
 									</div>
 										<br>					
