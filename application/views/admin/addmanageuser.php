@@ -46,8 +46,7 @@
                     },
                     
                     "emailId": {
-                            required: true
-							                       
+                            required: true        
                     }
                 },
                 

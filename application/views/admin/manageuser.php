@@ -73,7 +73,7 @@
 								<th>Last Name</th>
 								<th>User Name(s)</th>
 								<th>mobile No.</th>
-								<th>Email Id</th>
+								<th>Email </th>
 								<th>Edit </th>
 								<th>Delete </th>
                         </tr>
@@ -100,7 +100,7 @@
 								<th>Last Name</th>
 								<th>User Name(s)</th>
 								<th>mobile No.</th>
-								<th>Email Id</th>
+								<th>Email </th>
 								<th>Edit </th>
 								<th>Delete </th>
                         </tr>
