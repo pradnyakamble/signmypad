@@ -5,6 +5,9 @@
             $.validator.addMethod("NameRegex", function (value, element) {
                 return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
             }, "city name must contain only letters, numbers, or dashes.");
+            $.validator.addMethod("PasswordRegex",function(value,element){
+                return this.optional(element)|| /(?=.*[A-Z])(?=.*\W).{8}/.test(value);
+            },"Password must contain minimum of 8 characters, with 1 capital and 1 special character.");
             $("#frmadminstrator").validate({
                 rules: {
                     "FirstName": {
@@ -25,8 +28,7 @@
                     "Password": {
                         required: true,
                         //NameRegex: /[^A-Za-z\d\-\=\~\!@#\%&\*\(\)_\+\\\/<>\?\{\}\.\$‘\^\+\"\';:,\s]/,
-                        minlength: 8
-                        //NameRegex: true
+                        PasswordRegex: true
                     },
                     
                     "Status": {
@@ -69,8 +71,7 @@
                     
                      "Password": {
                         required: "You must enter your Password",
-                        minlength : 'Password requires one capital latter, one special character and minimum of 8 characters.',
-                        NameRegex: "Password format not valid"
+                        PasswordRegex: "Password requires one capital latter, one special character and minimum of 8 characters."
                     },
                     
                      "Status": {
