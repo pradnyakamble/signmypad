@@ -26,14 +26,14 @@
                     
                     "mobileNo": {
                         required: true,
-			            digits : true,
+                        digits : true,
 			            minlength : 10,
 			            maxlength : 13
                     },
                     
                     "emailId": {
 							  required: true,
-                       		       
+							                       
                     }
                 },
                 
@@ -54,20 +54,52 @@
                     },
                     
                     "mobileNo": {
-			            required: "You must enter your Mobile No.",
+                        required: "You must enter your Mobile No.",
                         digits : 'Please enter numbers only',
 			            minlength : 'Please enter a Mobile No. (10 digits)',
 			            maxlength : 'Please enter a Mobile No. (13 digits)'
                     },
                     
                     "emailId": {
-                        required: "You must enter your Email Id",	`1	
+                        required: "You must enter your Email Id",
                     }
                 }
             });
         });
     </script>   
 
+   <!--
+   <script type="text/javascript">
+        $().ready(function() {
+            // validate the comment form when it is submitted
+            $("#frmadminstrator").validate();
+
+            // validate signup form on keyup and submit
+            $("#frmadminstrator").validate({
+                rules: {
+                    FirstName: "required",
+                    LastName: "required",
+                    UserName: "required",
+                    mobileNo: "required",
+
+                    emailId: {
+                        required: true,
+                        email: true
+                    },                },
+                messages: {
+                    FirstName: "You must enter your Frist Name",
+                    LastName: "You must enter your Last Name",
+                    UserName: "You must enter your User Name",
+                    mobileNo: "You must enter your Mobile No.",
+
+                    email: "Please enter a valid email address"
+                    
+                }
+            });
+
+        });
+    </script>
+    -->
 <section class="page-wrapper" role="main">
     <section id="dashboard">
             <!-- Nav Shortcuts -->
@@ -131,13 +163,13 @@
 										Mobile No	
 										</label>
 										<label style="padding: 15px;">
-										<input class="small required phone" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
+										<input class="small required" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
 										</abel>
 									</div>
 									
 									<div style="padding: 10px;">
 										<label style="padding: 15px;">
-										Email Id:	
+										Email :	
 										</label>
 										<label style="padding: 15px;">
 										<input class="small required email" name="emailId" type="text" value="<?php echo $userDetails['emailId'];?>" />
