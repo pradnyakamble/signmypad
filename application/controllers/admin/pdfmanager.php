@@ -18,8 +18,12 @@ class Pdfmanager extends CI_Controller{
         $pdflistDetails = array();
         $pdflistDetails = $this->Pdfmanager_models->getPdfList();
         foreach($pdflistDetails as $key =>$pdflistDetail){
-            $pdflistDetails[$key]['mapUserToPdf'] = $this->Pdfmanager_models->getUserNotMappedToPdf($pdflistDetail['pdfFileId']);
+            $pdflistDetails[$key]['mapUserTo$pdflistDetailsPdf'] = $this->Pdfmanager_models->getUserNotMappedToPdf($pdflistDetail['pdfFileId']);
+            $pdflistDetails[$key]['alreadyMapUserToPdf'] = $this->Pdfmanager_models->getMappedUsers($pdflistDetail['pdfFileId']);
+            
         }
+        //echo "<pre>";
+       // print_r($pdflistDetails);
         $data['pdflistDetails'] = $pdflistDetails;
         $this->load->view('admin/pdflist',$data);
         $this->load->view('footer');
@@ -36,6 +40,8 @@ class Pdfmanager extends CI_Controller{
     public function deletePdfFile($pdfId){
         if(isset($pdfId) && $pdfId!=''){
             $pdflistDetails = $this->Pdfmanager_models->getMappedUsers($pdfId);
+            //echo "<pre>";
+            //print_r($pdflistDetails);die;
              if(empty($pdflistDetails)){
                  $retmsg = $this->Pdfmanager_models->delPdfFile($pdfId);
                  $this->session->set_flashdata('del_success', $retmsg);
@@ -173,15 +179,18 @@ class Pdfmanager extends CI_Controller{
            }else{
                $this -> load -> library('upload');
                $config['allowed_types']= '*';
-               $config['upload_path'] = './public/upload/';
+               $config['upload_path'] = UPLOAD_FILE_PATH;
                $this->upload->initialize($config);
+               //echo "<pre>";
+              // print_r($_FILES);die;
               foreach ($_FILES as $key => $value){
                 if (!empty( $_FILES[$key]['name'])){
                     if(!$this -> upload -> do_upload($key)){
                         $this->upload->display_errors('<p>', '</p>');
                     }
                     else{
-                       $fileName = substr($_FILES[$key]['name'],0,strpos($_FILES[$key]['name'],'.'));
+                      $file_data =   $this->upload->data();
+                       $fileName = $file_data['file_name'];
                        $insertResult = $this->Pdfmanager_models->addPdf($fileName); 
                        if($insertResult ===False){
                           $retmsg = 1; 
@@ -201,7 +210,7 @@ class Pdfmanager extends CI_Controller{
            $mapUserToPdf = $this->Pdfmanager_models->getUserNotMappedToPdf();
           $data['mapUserToPdf'] = $mapUserToPdf;   
        }
-        $this->load->view('header');
+       $this->load->view('header');
        $this->load->view('footer');
        $this->load->view('addNewPdf',$data);
    }
@@ -235,7 +244,75 @@ class Pdfmanager extends CI_Controller{
         }
         return FALSE;
     } */ 
-    
+    /**
+     * downloadPdf
+     * 
+     * download pdf file
+     * @author   
+     * @access	public
+     * @return	void
+    */
+   public function downloadPdf($pdfId){
+     
+      /*$this->load->helper('download');
+      $pdfFileDetails= $this->Pdfmanager_models->getPdfDetail($pdfId);
+      $filename = $pdfFileDetails[0]['pdfFilename']; 
+      $fileLocation =UPLOAD_FILE_PATH.$filename;
+      header("Content-Type: application/octet-stream");
+      $data = file_get_contents($fileLocation); // Read the file's contents
+      force_download($filename, $data); */
+      $this->load->helper('file');
+      $this -> load -> library('upload');
+      $pdfFileDetails= $this->Pdfmanager_models->getPdfDetail($pdfId);
+      $filename = $pdfFileDetails[0]['pdfFilename'];
+      $fileLocation = './public/upload/'.$filename;
+      //echo filemtime ($fileLocation);die;
+      $mime = get_mime_by_extension($filename);
+      header('Pragma: public');     // required
+      header('Expires: 0');         // no cache
+      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+      //header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($fileLocation)).' GMT');
+      header('Cache-Control: private',false);
+      header('Content-Type: '.$mime);  // Add the mime type from Code igniter.
+      header('Content-Disposition: attachment; filename="'.basename($fileLocation).'"');  // Add the file name
+      header('Content-Transfer-Encoding: binary');
+      header('Content-Length: '.filesize($fileLocation)); // provide file size
+      header('Connection: close');
+      readfile($fileLocation); // push it out
+      exit(); 
+   }
+   
+   /**
+     * revokeUserFromPdf
+     * 
+     * revoke the accesss from user of PDF
+     * @author   
+     * @access	public
+     * @return	void
+    */
+   public function revokeUserFromPdf($pdfId){
+       $this->form_validation->set_rules('User[]', 'Select User To Revoke Permission', 'required');
+       if ($this->form_validation->run() === FALSE){
+           $UserList = $this->Pdfmanager_models->getUserNotMappedToPdf($pdfId);
+           $revokeUserList = $this->Pdfmanager_models->getMappedUsers($pdfId);
+           $data['UserList'] = $UserList;
+           $data['revokeUserList'] = $revokeUserList;
+           $data['pdfId'] = $pdfId;
+       }else{
+           $retmsg = $this->Pdfmanager_models->unsetUserPdfAccess($pdfId);
+            if($retmsg){
+                $this->session->set_flashdata('revokeAccess_success', $retmsg);
+            }else{
+               $this->session->set_flashdata('revokeAccess_unsuccess', $retmsg); 
+            }    
+            redirect('admin/pdfmanager/index'); 
+       }
+       $this->load->view('header');
+       $this->load->view('footer');
+       $this->load->view('admin/revokePdfFromUser',$data);
+   }
+   
+  
          
     
 }    

@@ -24,20 +24,17 @@
         <script type="text/javascript">
             
         </script>
-        <article class="content-box minimizer">
+        <article class="content-box">
             <header>
-                	<h2 style="padding-right: 90px;">Add New Pdf</h2>
+                	<h2 style="padding-right: 90px;">Add New PDF</h2>
 
                 <nav>
                     <ul class="button-switch">
                         <li><a href="<?php echo base_url(); ?>admin/pdfmanager/index"
-                            class="button">List Pdf File</a>
+                            class="button">List PDF File</a>
                         </li>
                     </ul>
-                </nav>	<a style="display: block; left: 163px;" href="#" class="content-box-minimizer"
-                title="Toggle Content Block">Toggle</a>
-	<a title="Toggle Content Block"
-                class="content-box-minimizer" href="#" style="display: block; left: 163px;">Toggle</a>
+                </nav>	
             </header>
             <section>
                 <form id="frmadminstrator" action="<?php echo base_url(); ?>admin/pdfmanager/addNewPdfFile"  
@@ -59,7 +56,7 @@
                                         <p>There is some error in uploading file</p>
                                     </div>
                                     <?php }?>
-                                <legend>Add New Pdf</legend>
+                                <legend>Add New PDF</legend>
                                 <dl>	
                                         <dt>
                                             <label>Select File</label>

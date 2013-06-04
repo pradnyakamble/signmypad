@@ -24,20 +24,17 @@
         <script type="text/javascript">
             
         </script>
-        <article class="content-box minimizer">
+        <article class="content-box">
             <header>
-                	<h2 style="padding-right: 90px;">Assign Pdf To User</h2>
+                	<h2 style="padding-right: 90px;">Assign PDF To User</h2>
 
                 <nav>
                     <ul class="button-switch">
                         <li><a href="<?php echo base_url(); ?>admin/pdfmanager/index"
-                            class="button">List Pdf File</a>
+                            class="button">List PDF File</a>
                         </li>
                     </ul>
-                </nav>	<a style="display: block; left: 163px;" href="#" class="content-box-minimizer"
-                title="Toggle Content Block">Toggle</a>
-	<a title="Toggle Content Block"
-                class="content-box-minimizer" href="#" style="display: block; left: 163px;">Toggle</a>
+                </nav>	
             </header>
             <section>
                 <form id="frmadminstrator" action="<?php echo base_url(); ?>admin/pdfmanager/mappUserToPdf/<?php echo $pdfId; ?>"
@@ -56,10 +53,10 @@
 
                                         	<h4>Failed</h4>
 
-                                        <p>Pdf name already Exist</p>
+                                        <p>PDF name already Exist</p>
                                     </div>
                                     <?php }?>
-                                <legend>Pdf File Access</legend>
+                                <legend>PDF File Access</legend>
                                 <dl>	
                                         <dt>
                                             <label>Select User</label>

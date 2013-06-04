@@ -19,11 +19,11 @@ class Pdfmanager_models extends CI_Model{
     }
     
     function getMappedUsers($pdfId){
-        $this->db->select('pdf_access_details.PdfFileId,Users.FirstName,Users.LastName');
+        $this->db->select('pdf_access_details.PdfFileId,Users.FirstName,Users.LastName,Users.UserId');
         $this->db->from('pdf_access_details');
         $this->db->join('Users', 'Users.UserId = pdf_access_details.UserId');
         $this->db->where('Users.Status','Active');
-        $this->db->where('pdf_access_details.PaymentStatus','1');
+        $this->db->where('pdf_access_details.Access','1');
         $this->db->where('pdf_access_details.PdfFileId',$pdfId);
         $query = $this->db->get();
 	//echo $this->db->last_query();
@@ -98,16 +98,19 @@ class Pdfmanager_models extends CI_Model{
     * @return int 
     */
    public function getUserNotMappedToPdf($pdfId=''){
+      // echo "dafsadfsdfsdfds";die;
         $this->db->select('Users.UserId,Users.FirstName,Users.LastName');
         $this->db->from('Users');
         if(isset($pdfId) && $pdfId!=''){
-            $where = "UserId  Not in (SELECT UserId FROM `pdf_access_details` WHERE `PdfFileId` =".$pdfId.") and `UserTypeId` =3";
+            $where = "UserId  Not in (SELECT UserId FROM `pdf_access_details` WHERE `PdfFileId` =".$pdfId."  AND `Access` =1) and `UserTypeId` =3 ";
              
             }else{
              $where =    "`UserTypeId` =3";
             }
        $this->db->where($where);
+       
         $query = $this->db->get();
+        //echo $this->db->last_query();
         return $query->result_array();
    }
    
@@ -117,6 +120,13 @@ class Pdfmanager_models extends CI_Model{
        //print_r($_POST);die;
        $users = $_POST['User'];
       foreach($users as $user){
+        $this->db->select('pdf_access_details.UserId');
+        $this->db->from('pdf_access_details');
+        $this->db->where('pdfFileId', $pdfId);
+        $this->db->where('UserId', $user);
+        $query = $this->db->get();
+        $exist = $query->result_array();
+        if(empty($exist)){
         $data = array(
                 'UserId' => $user,
                 'PaymentId' =>  '1',
@@ -126,6 +136,14 @@ class Pdfmanager_models extends CI_Model{
                 'comment'=>$_POST['comment'],
              );
        $resultInserted = $this->db->insert('pdf_access_details', $data); 
+        }else{
+             $data = array(
+                'Access'=>'1'
+             );
+        $this->db->where('PdfFileId', $pdfId);
+        $this->db->where('UserId',$user);
+        $resultInserted = $this->db->update('pdf_access_details', $data);
+        }
        /*if($resultInserted){
          $updatedata = array(
                 'accessAllowed' =>'1'
@@ -153,10 +171,6 @@ class Pdfmanager_models extends CI_Model{
    }
    
    public function addPdf($fileName){
-      // echo "<pre>";
-      // print_r($_POST);die;
-      
-      
        $userSessData = $this->session->userdata('userdata');
        $this->db->trans_start();
        $data = array(
@@ -177,6 +191,25 @@ class Pdfmanager_models extends CI_Model{
       }else{
         $this->db->trans_commit();
         return true;
+      }
+   }
+   
+   public function unsetUserPdfAccess($pdfId){
+        $users = $_POST['User'];
+       foreach($users as $user){
+           $data = array(
+                'Access'=>'0'
+             );
+        $this->db->where('PdfFileId', $pdfId);
+        $this->db->where('UserId',$user);
+        $result = $this->db->update('pdf_access_details', $data);
+        //echo $this->db->last_query();die;
+        if(!$result){
+           return false;
+        }
+       }
+       if($result){
+          return true;
       }
    }
 }    

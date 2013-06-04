@@ -19,7 +19,7 @@ class Manageuser extends CI_Controller{
 	}
    
        public function delManageUser($UserId){
-       	$Id = $_GET['UserId'];
+       	//$Id = $_GET['UserId'];
         if(isset($UserId) && $UserId!=''){
             $data = $this->manageuser_models->getManageUsers($UserId);
              if(empty($data)){
@@ -45,7 +45,7 @@ class Manageuser extends CI_Controller{
 		$this->load->view('footer');
 	}
 
-	public function editmanageuserdetail($userid)
+	public function editmanageuserdetail($userid='')
 	{
 		//echo "11111";  die;
 		$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');

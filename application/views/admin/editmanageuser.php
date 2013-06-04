@@ -32,7 +32,7 @@
                     },
                     
                     "emailId": {
-							  required: true,
+			required: true
                        		       
                     }
                 },
@@ -61,7 +61,7 @@
                     },
                     
                     "emailId": {
-                        required: "You must enter your Email Id",	`1	
+                        required: "You must enter your Email Id"	
                     }
                 }
             });

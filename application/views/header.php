@@ -4,7 +4,7 @@
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
-	<title>SignMyPdf Administration Template</title>
+	<title>SignMyPad Cloud Administration</title>
 	
 	<meta charset="utf-8">
 	<meta name="description" content="">
@@ -63,7 +63,7 @@
 		<div class="navigation-wrapper">
 		
 			<!-- Logo -->
-			<a href="/" class="muon-logo" title="Back to homepage">Your logo</a>
+			
 			
 			<!-- Root navigation block -->
 			<nav>
@@ -72,15 +72,15 @@
 				<ul>
 					
 					<!-- Root menu items -->
-					<li><a href="/" class="muon-no-submenu">Dashboard</a></li>
-					<li><a href="<?php echo base_url(); ?>admin/manageuser">MANAGE USERS</a>
+					
+					<li><a href="<?php echo base_url(); ?>admin/manageuser">Manage Users</a>
 					
 						<!-- Submenu block divided to five blocks -->
 						
 					</li>
 					
 					<!-- Root menu item -->
-                                        <li><a href="<?php echo base_url(); ?>admin/pdfmanager">Manage Pdf</a>
+                                        <li><a href="<?php echo base_url(); ?>admin/pdfmanager">Manage PDFs</a>
 	
 						<!-- Submenu block divided to five blocks -->
 						
@@ -89,13 +89,7 @@
 					</li>
 	
 					<!-- Root menu item -->
-					<li><a href="#">Users</a>
 					
-						<!-- Submenu block divided to three blocks -->
-						
-						<!-- End of submenu block -->
-						
-					</li>
 	
 				<!-- End of root menu level -->
 				</ul>
@@ -107,8 +101,7 @@
 			<ul class="muon-user-list">
 				<li class="muon-user-data">Welcome, <a href="#"><?php $userSessData = $this->session->userdata('userdata');
         echo  $userSessData['user_fname'].' '.$userSessData['user_lname']; ?></a></li>
-				<li><a class="muon-signup" title="Messages" href="#">Messages</a></li>
-				<li><a class="muon-settings" title="Settings" href="#">Settings</a></li>
+				
                                 <li><a class="muon-logout" title="Logout" href="<?php echo base_url();?>admin/signout">Logout</a></li>
 			</ul>
 			

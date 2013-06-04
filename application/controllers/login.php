@@ -61,7 +61,7 @@ class Login extends CI_Controller{
 			$this->input->set_cookie($cookiePassword);
                     }
                     
-                    redirect('../admin/welcome');
+                    redirect('../admin/pdfmanager');
                 }else{
                     $email=$this->input->post('email');
                     $enc_pass=md5($this->input->post('password'));

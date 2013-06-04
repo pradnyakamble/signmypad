@@ -3,21 +3,7 @@
             $.validator.addMethod("NameRegex", function (value, element) {
                 return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
             }, "city name must contain only letters, numbers, or dashes.");
-            $("#frmadminstrator").validate({
-                rules: {
-                    "pdfFileName": {
-                        required: true,
-                        NameRegex: true,
-                    }
-
-                },
-                messages: {
-                    "pdfFileName": {
-                        required: "You must enter a pdf File  name",
-                        NameRegex: "PDF File Name format not valid"
-                    }
-                }
-            });
+            $("#frmadminstrator").validate();
         });
     </script>
     <!-- Main Content -->
@@ -28,7 +14,7 @@
         </script>
         <article class="content-box">
             <header>
-                	<h2 style="padding-right: 90px;">PDF detail</h2>
+                	<h2 style="padding-right: 90px;">Assign PDF To User</h2>
 
                 <nav>
                     <ul class="button-switch">
@@ -39,7 +25,7 @@
                 </nav>	
             </header>
             <section>
-                <form id="frmadminstrator" action="<?php echo base_url(); ?>admin/pdfmanager/editPdfDetail/<?php echo $pdfFileDetails['pdfFileId']; ?>"
+                <form id="frmadminstrator" action="<?php echo base_url(); ?>admin/pdfmanager/revokeUserFromPdf/<?php echo $pdfId; ?>"
                 accept-charset="utf-8" method="post" novalidate="novalidate">
                     <fieldset>
                         <?php $msg=validation_errors(); if(!empty($msg)){ ?>
@@ -58,28 +44,36 @@
                                         <p>PDF name already Exist</p>
                                     </div>
                                     <?php }?>
-                                <legend>PDF File Details</legend>
-                                <dl>	<dt>
-                                        <label>PDF File Name</label>
-                                        </dt>
-                                        <dd>
-                                            <input type="text" class="small required" id="pdfFileName" value="<?php echo $pdfFileDetails['pdfFilename'];?>"
-                                            name="pdfFileName">
-                                        </dd>
+                                <legend>PDF File Access</legend>
+                                <dl>	
                                         <dt>
-                                            <label>Select pdf File status</label>
+                                            <label>Total User</label>
                                         </dt>
 
                                     <dd>
-                                        <select name="status" class="small required">
-						<option value="">select</option>
-                                                <option value="published" <?php if($pdfFileDetails['status']=="published") echo 'selected="selected"';?>>Published</option>
-                                                <option value="Unpublished" <?php if($pdfFileDetails['status']=="Unpublished") echo 'selected="selected"';?>>Unpublished</option>
+                                        <select  class="small " disabled ="disabled" multiple="multiple" id="totalUser" name="totaluser">
+                                                <?php foreach($UserList as $User) { 
+                                                echo ' <option value="'.$User['UserId'].'" >'.$User['FirstName'].' '.$User['LastName'].'</option>';
+                                                } ?>
                                         </select>
                                     </dd>
+                                    <dt>
+                                            <label>Select User To Revoke Permission</label>
+                                        </dt>
+
+                                    <dd>
+                                        <select name="User[]" class="small required" id="user" multiple="multiple">
+						<option value='' selected>select</option>
+                                                <?php foreach($revokeUserList as $revokeUser) { 
+                                                echo ' <option value="'.$revokeUser['UserId'].'" >'.$revokeUser['FirstName'].' '.$revokeUser['LastName'].'</option>';
+                                                  
+                                                } ?>
+                                        </select>
+                                    </dd>
+                                    
                                 </dl>
                     </fieldset>
-                    <input type="submit" value="Update PDF File" name="cmdSubmit">
+                    <input type="submit" value="Revoke Access" name="Revoke Access">
                 </form>
             </section>
         </article>

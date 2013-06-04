@@ -24,7 +24,7 @@ class Login_models extends CI_Model{
     public function getUserDetail($email)
      {
 	  $this->db->where('emailId',$email);
-	  $query = $this->db->get(Users);
+	  $query = $this->db->get('Users');
 	  if($query->num_rows > 0)
 	  {
 	      return $query->row_array();
