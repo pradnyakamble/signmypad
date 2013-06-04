@@ -23,7 +23,7 @@ class Manageuser_models extends CI_Model{
         $this->db->where('Users.Status','1');
         $this->db->where('Users.UserId',$UserId);
         $query = $this->db->get();
-	//echo $this->db->last_query();
+		//echo $this->db->last_query();
         return $query->result_array();
     }
 	   
@@ -48,7 +48,7 @@ class Manageuser_models extends CI_Model{
         return $query->result_array();
     }
 	   
-	      function editmanageuserdetail($UserId){
+	    function editmanageuserdetail($UserId){
         //echo "here";die;
         $this->db->select('Users.*');
         $this->db->from('Users');
@@ -58,6 +58,15 @@ class Manageuser_models extends CI_Model{
         //echo $this->db->last_query();
         return $query->result_array();
     }
+      /**
+     * checkExistmanageUser
+     *
+     * checks User name already exist or not
+     * 
+     * @author  
+     * @access	public
+     * @return	array
+     */
 	   
 	 public function checkExistmanageUser($emailId, $UserId = FALSE) {
         $this->db->like('emailId',$emailId, 'none');
@@ -67,6 +76,16 @@ class Manageuser_models extends CI_Model{
         $query = $this->db->get('Users');
         return $query->result_array();
     }
+	 
+	     /**
+     * setUserInfo
+     *
+     * Set User data 
+     * 
+     * @author   
+     * @access	public
+     * @return	int
+     */
 	 
 	   public function setUserInfo($UserId) {
         $data = array('FirstName'=>$_POST['FirstName'],
@@ -79,6 +98,15 @@ class Manageuser_models extends CI_Model{
        return $result;
     }	 
 	   
+	 /**
+     * delManageUser
+     * 
+     * delete User data
+     * @author 
+     * @access public
+     * @return int 
+     */ 
+     
 	    public function delManageUser($UserId){
 	    	   $data = array(
 					  'Status' => 'Deleted');

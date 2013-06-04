@@ -45,50 +45,55 @@ class Manageuser extends CI_Controller{
 		$this->load->view('footer');
 	}
 
-	public function editmanageuserdetail($userid='')
-	{
-		//echo "11111";  die;
-		$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');
-		$this->form_validation->set_rules('LastName', 'Last Name', 'required');
-		$this->form_validation->set_rules('UserName', 'User Name', 'required');
-		$this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
-		$this->form_validation->set_rules('emailId', 'Email Id', 'required' );
-        if ($this->form_validation->run() === FALSE){
-        	 $data['userId']=$userid;
-            if(!is_numeric($data['userId'] )){
-                redirect('admin/manageuser/index');
-            }
+
+
+
+		public function editmanageuserdetail($userid='')
+			{
+			//echo "11111"; die;
+			$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');
+			$this->form_validation->set_rules('LastName', 'Last Name', 'required');
+			$this->form_validation->set_rules('UserName', 'User Name', 'required');
+			$this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
+			$this->form_validation->set_rules('emailId', 'Email Id', 'required' );
+			        if ($this->form_validation->run() === FALSE){
+			         $data['userId']=$userid;
+			            if(!is_numeric($data['userId'] )){
+			                redirect('admin/manageuser/index');
+			            }
+
 			$userDetails= $this->manageuser_models->getUserDetail($userid);
 			//echo "<pre>";
 			//print_r($userDetails);
-            $data['userDetails'] = $userDetails[0];
-            if(empty($data['userDetails'])){
-                redirect('admin/manageuser/index');
-            }
-	        
-        }else{
+			            $data['userDetails'] = $userDetails[0];
+			            if(empty($data['userDetails'])){
+			                redirect('admin/manageuser/index');
+			            }
+			        }else{
 			$emailId = $this->input->post('emailId');
 			$UserId = $this->input->post('UserId');
-	        $UserNameExist = $this->manageuser_models->checkExistmanageUser ($emailId, $UserId);
-	       	 if(empty($UserNameExist)){
-	           // $data['UserName'] = $UserName;  
-	            $retmsg = $this->manageuser_models->setUserInfo($UserId);
-	            if($retmsg){
-	                $this->session->set_flashdata('edit_success', $retmsg);
-	            }else{
-	               $this->session->set_flashdata('edit_unsuccess', $retmsg); 
-	            }    
-	            redirect('admin/manageuser/index');
-         }else{
-            $retmsg = 1;
-            $this->session->set_flashdata('edit_unsuccess', $retmsg);
-            redirect('admin/manageuser/editmanageuserdetail/'.$UserId);
-         }
-        }
-		$this->load->view('header');
-		$this->load->view('admin/editmanageuser',$data);
-		$this->load->view('footer');
-		}
+			$UserNameExist = $this->manageuser_models->checkExistmanageUser ($emailId, $UserId);
+			if(empty($UserNameExist)){
+			// $data['UserName'] = $UserName;
+			$retmsg = $this->manageuser_models->setUserInfo($UserId);
+			if($retmsg){
+			$this->session->set_flashdata('edit_success', $retmsg);
+			}else{
+			$this->session->set_flashdata('edit_unsuccess', $retmsg);
+			}
+			redirect('admin/manageuser/index');
+			         }else{
+			            $retmsg = 1;
+			            $this->session->set_flashdata('edit_unsuccess', $retmsg);
+			            redirect('admin/manageuser/editmanageuserdetail/'.$UserId);
+			         }
+			        }
+			$this->load->view('header');
+			$this->load->view('admin/editmanageuser',$data);
+			$this->load->view('footer');
+			}
+
+
 	
 	
 	   public function addManageUser(){
@@ -105,8 +110,8 @@ class Manageuser extends CI_Controller{
 			  
 			  if($this->form_validation->run() === FALSE){
 			  	 $this->load->view('header');
-      			 $this->load->view('footer');
-			     $this->load->view('admin/addmanageuser');
+       $this->load->view('footer');
+			  	$this->load->view('admin/addmanageuser');
 			  }else{
 			  	$userDetails['FirstName'] = $_POST['FirstName'];
 			  $userDetails['LastName'] = $_POST['LastName'];

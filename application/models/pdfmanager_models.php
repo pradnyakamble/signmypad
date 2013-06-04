@@ -14,7 +14,7 @@ class Pdfmanager_models extends CI_Model{
         $this->db->join('Users', 'Users.UserId = pdf_resources.CreatedBy');
         //$this->db->where('pdf_resources.Status','published');
         $query = $this->db->get();
-	//echo $this->db->last_query();
+		//echo $this->db->last_query();
         return $query->result_array();
     }
     

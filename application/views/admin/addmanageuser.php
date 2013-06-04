@@ -24,7 +24,9 @@
                     
                     "Password": {
                         required: true,
-                        NameRegex: true
+                        //NameRegex: /[^A-Za-z\d\-\=\~\!@#\%&\*\(\)_\+\\\/<>\?\{\}\.\$‘\^\+\"\';:,\s]/,
+                        minlength: 8
+                        //NameRegex: true
                     },
                     
                     "Status": {
@@ -33,7 +35,7 @@
                     },
                     
                     "UserTypeId": {
-                        required: true,
+                        required: true
                     },
                     
                     "mobileNo": {
@@ -44,7 +46,7 @@
                     },
                     
                     "emailId": {
-							  required: true,
+                            required: true
 							                       
                     }
                 },
@@ -67,6 +69,7 @@
                     
                      "Password": {
                         required: "You must enter your Password",
+                        minlength : 'Password requires one capital latter, one special character and minimum of 8 characters.',
                         NameRegex: "Password format not valid"
                     },
                     
@@ -76,7 +79,7 @@
                     },
                     
                     "UserTypeId": {
-                        required: "You must selest atlist one User Type Id",
+                        required: "You must selest atlist one User Type Id"
                     },
                     
                     "mobileNo": {
@@ -87,18 +90,14 @@
                     },
                     
                     "emailId": {
-                        required: "You must enter your Email Id",
-                         
+                        required: "You must enter your Email Id"
+                        
                     }
                 }
             });
         });
     </script>   
-    <script>
-     $.validator.addMethod("NameRegex", function (value, element) {
-                return this.optional(element) || /^[A-Za-z][a-z0-9\_\s]+$/i.test(value);
-            }, "city name must contain only letters, numbers, or dashes.");
-    </script>
+  
 <section class="page-wrapper" role="main">
 	  <section id="dashboard"></section>
         <script type="text/javascript">
@@ -169,7 +168,7 @@
 												</dt>
 												<dd>
 													<div id ="FileUploader">
-													<input class="small required" type = "text" name = "Password" id = "Password"/>
+													<input class="small required" type = "password" name = "Password" id = "Password"/>
 													<label class="error" for="file" generated="true"><?php echo form_error('Password') ;?></label>
 													</div>
 												</dd>
@@ -218,7 +217,7 @@
 												</dd>
 											
 												<dt>
-													<label>Email Id : </label>
+													<label>Email : </label>
 												</dt>
 												<dd>
 													<div id ="FileUploader">
