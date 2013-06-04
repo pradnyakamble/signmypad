@@ -10,7 +10,11 @@ class Manageuser extends CI_Controller{
         $this->load->model('manageuser_models');
     } 
 	 
-   public function index(){	
+   public function index(){
+   	//echo "<pre>";
+	
+	//print_r($s_id);
+	//die();	
 		$this->load->model('manageuser_models');
 		$data['query'] = $this->manageuser_models->manageuser();
 		$this->load->view('header');	
@@ -51,11 +55,19 @@ class Manageuser extends CI_Controller{
 		public function editmanageuserdetail($userid='')
 			{
 			//echo "11111"; die;
+			//echo "<pre>"; 
+			//print_r($this->session->all_userdata()); 
+			//die();
+			$s_data = $this->session->all_userdata(); 
+			$s_id = $s_data['userdata']['User_TypeId'];
+			$data['s_utid'] = $s_id;			
 			$this->form_validation->set_rules('FirstName', 'Frist Name', 'required');
 			$this->form_validation->set_rules('LastName', 'Last Name', 'required');
 			$this->form_validation->set_rules('UserName', 'User Name', 'required');
 			$this->form_validation->set_rules('mobileNo', 'Mobile No', 'required');
 			$this->form_validation->set_rules('emailId', 'Email Id', 'required' );
+			$this->form_validation->set_rules('UserTypeId', 'User Type Id', 'required' );
+			
 			        if ($this->form_validation->run() === FALSE){
 			         $data['userId']=$userid;
 			            if(!is_numeric($data['userId'] )){

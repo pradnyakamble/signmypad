@@ -33,6 +33,10 @@
                     
                     "emailId": {
                                 required: true
+                    },
+                    
+                    "UserTypeId": {
+                        required: true
                     }
                 },
                 
@@ -61,44 +65,17 @@
                     
                     "emailId": {
                         required: "You must enter your Email Id"
+                    },
+                    
+                     "UserTypeId": {
+                        required: "You must selest atlist one User Type Id"
                     }
                 }
             });
         });
     </script>   
 
-   <!--
-   <script type="text/javascript">
-        $().ready(function() {
-            // validate the comment form when it is submitted
-            $("#frmadminstrator").validate();
-
-            // validate signup form on keyup and submit
-            $("#frmadminstrator").validate({
-                rules: {
-                    FirstName: "required",
-                    LastName: "required",
-                    UserName: "required",
-                    mobileNo: "required",
-
-                    emailId: {
-                        required: true,
-                        email: true
-                    },                },
-                messages: {
-                    FirstName: "You must enter your Frist Name",
-                    LastName: "You must enter your Last Name",
-                    UserName: "You must enter your User Name",
-                    mobileNo: "You must enter your Mobile No.",
-
-                    email: "Please enter a valid email address"
-                    
-                }
-            });
-
-        });
-    </script>
-    -->
+   
 <section class="page-wrapper" role="main">
     <section id="dashboard">
             <!-- Nav Shortcuts -->
@@ -106,10 +83,10 @@
         </section>
     <article class="content-box minimizer">
         <header>	
-            <h2>Manage User</h2>
+            <h2>Edit Manage User</h2>
             <nav style="display: block;">
                 <ul class="button-switch">
-                    <li><a href="<?php echo base_url();  ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
+                    <li><a href="<?php echo base_url(); ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
                     </li>
                 </ul>
             </nav>
@@ -131,50 +108,71 @@
                 <p>Email id already exist you can not use this email id</p>
             </div>
         <?php } ?> 
-                                	<legend>Edit Details of <?php echo $userDetails['FirstName'];?></legend>
+                                	<legend>Editing Details of <?php echo $userDetails['FirstName'];?></legend>
 
 								<div>
 									
 									<div style="padding: 10px; spacing: 10px">
-										<label style="padding: 15px;">
+										<label style="padding: 10px;">
 										First Name	
 										</label>
+										<label style="padding: 32px;">
 										<input class="small required" name="FirstName" type="text" value="<?php echo $userDetails['FirstName'];?>" />									
+										</label>
 									</div>
 									
 									<div style="padding: 10px;">
-										<label style="padding: 15px;">
+										<label style="padding: 10px;">
 										Last Name	
 										</label>
+										<label style="padding: 32px;">
 										<input class="small required" name="LastName" type="text" value="<?php echo $userDetails['LastName'];?>" />
+										</label>
 									</div>
 									
 									<div style="padding: 10px;">
-										<label style="padding: 15px;">
+										<label style="padding: 10px;">
 										User Name	
 										</label>
+										<label style="padding: 32px;">
 										<input class="small required" name="UserName" type="text" value="<?php echo $userDetails['UserName'];?>" />
-									
+										</label>
 									</div>
 									
 									<div style="padding: 10px;">
 										<label style="padding: 10px;">
 										Mobile No	
 										</label>
-										<label style="padding: 15px;">
+										<label style="padding: 37px;">
 										<input class="small required" name="mobileNo" type="text" value="<?php echo $userDetails['mobileNo'];?>" />
 										</abel>
 									</div>
 									
 									<div style="padding: 10px;">
 										<label style="padding: 15px;">
-										Email :	
+										Email 
 										</label>
-										<label style="padding: 15px;">
+										<label style="padding: 58px;">
 										<input class="small required email" name="emailId" type="text" value="<?php echo $userDetails['emailId'];?>" />
 										</label>
 									</div>
-										<br>					
+									
+									<?php if($s_utid == '1'){
+										
+										//if(User_TypeId)?>
+									<div style="padding: 10px;">
+										<label style="padding: 15px;">
+										User Type Id
+										</label>
+										<label style="padding: 15px;">
+										<select class="small required UserTypeId" name="UserTypeId" value="<?php $userDetails['UserTypeId'] ;?>">
+									                  <option></option>
+									                  <option value="2">Admin</option>
+									                  <option value ="3">User</option>
+									                </select>
+										</label>
+									</div>
+									<?php } ?>			
 								</div>
 								</fieldset>
 								<div class="actions" style="width: 920px;">

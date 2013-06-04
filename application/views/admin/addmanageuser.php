@@ -27,7 +27,6 @@
                     
                     "Password": {
                         required: true,
-                        //NameRegex: /[^A-Za-z\d\-\=\~\!@#\%&\*\(\)_\+\\\/<>\?\{\}\.\$‘\^\+\"\';:,\s]/,
                         PasswordRegex: true
                     },
                     
@@ -172,9 +171,8 @@
 													<label class="error" for="file" generated="true"><?php echo form_error('Password') ;?></label>
 													</div>
 												</dd>
-											</tr>
 											
-												<tr>
+											
 												<dt>
 													<label>Status : </label>
 												</dt>
@@ -203,9 +201,7 @@
 									                <label class="error" for="file" generated="true"><?php echo form_error('UserTypeId') ?></label>
 									                </div>
 												</dd>
-											</tr>
-											
-												<tr>
+										
 												<dt>
 													<label>Mobile No. : </label>
 												</dt>
@@ -230,7 +226,7 @@
 										  </fieldset>
 												
 													<input type="reset" class="button"/>
-													<input type="submit" name="submit" value="Add New Uaer">
+													<input type="submit" name="submit" value="Add New User">
 												
 									</form> 
         </section>	

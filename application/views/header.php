@@ -99,7 +99,7 @@
 			
 			<!-- User list -->
 			<ul class="muon-user-list">
-				<li class="muon-user-data">Welcome, <a href="#"><?php $userSessData = $this->session->userdata('userdata');
+				<li class="muon-user-data">Welcome, <a href="<?php echo base_url(); ?>login/userDetail"><?php $userSessData = $this->session->userdata('userdata');
         echo  $userSessData['user_fname'].' '.$userSessData['user_lname']; ?></a></li>
 				
                                 <li><a class="muon-logout" title="Logout" href="<?php echo base_url();?>admin/signout">Logout</a></li>

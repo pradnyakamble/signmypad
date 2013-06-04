@@ -12,7 +12,7 @@ class Manageuser_models extends CI_Model{
 	 {      
                 $userSessData = $this->session->userdata('userdata');
 	 	$this->db->where('Status', 'Active');  
-                $this->db->where_not_in('UserId',$userSessData['user_id']); 
+        $this->db->where_not_in('UserId',$userSessData['user_id']); 
 		$query = $this->db->get('Users');
 		$arrResult = $query->result_array();
 		return $arrResult;
@@ -30,7 +30,7 @@ class Manageuser_models extends CI_Model{
     }
 	   
 	   function editmanageuser($UserId){
-        $this->db->select('Users.FirstName,Users.LastName,Users.UserName,Users.mobileNo,Users.emailId');
+        $this->db->select('Users.FirstName,Users.LastName,Users.UserName,Users.mobileNo,Users.emailId,Users.UserTypeId');
         $this->db->from('Users');
         $this->db->where('Users.Status','Active');
         $this->db->where('Users.UserId',$UserId);
@@ -41,7 +41,7 @@ class Manageuser_models extends CI_Model{
 	   
 	   
 	    function getUserDetail($UserId){
-        $this->db->select('Users.FirstName,Users.LastName,Users.UserName,Users.mobileNo,Users.emailId,Users.UserId');
+        $this->db->select('Users.FirstName,Users.LastName,Users.UserName,Users.mobileNo,Users.emailId,Users.UserTypeId,Users.UserId');
         $this->db->from('Users');
         $this->db->where('Users.Status','Active');
         $this->db->where('Users.UserId',$UserId);
@@ -94,7 +94,8 @@ class Manageuser_models extends CI_Model{
         			  'LastName' => $_POST['LastName'],
 				      'UserName' => $_POST['UserName'],
 					  'mobileNo' => $_POST['mobileNo'],
-					  'emailId' => $_POST['emailId']);
+					  'emailId' => $_POST['emailId'],
+					  'UserTypeId' => $_POST['UserTypeId']);
         $this->db->where('UserId', $UserId);
         $result = $this->db->update('Users', $data);
        return $result;
