@@ -9,8 +9,10 @@ class Manageuser_models extends CI_Model{
     }
     
     	 public function manageuser()
-	 {
+	 {      
+                $userSessData = $this->session->userdata('userdata');
 	 	$this->db->where('Status', 'Active');  
+                $this->db->where_not_in('UserId',$userSessData['user_id']); 
 		$query = $this->db->get('Users');
 		$arrResult = $query->result_array();
 		return $arrResult;
