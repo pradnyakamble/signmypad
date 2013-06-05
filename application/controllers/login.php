@@ -39,6 +39,7 @@ class Login extends CI_Controller{
                                 'user_fname' => $result[0]['FirstName'],
                                 'user_lname' => $result[0]['LastName'],
                                 'user_mobile' => $result[0]['mobileNo'],
+                                'User_uname'=> $result[0]['UserName'],								
                                 'User_TypeId'=> $result[0]['UserTypeId']
                             )
                         );
@@ -94,14 +95,65 @@ class Login extends CI_Controller{
 		$s_data = $this->session->all_userdata(); 
 		$s_id = $s_data['userdata']['user_id'];
 		$s_fname = $s_data['userdata']['user_fname'];
+		$s_lname = $s_data['userdata']['user_lname'];
+		$s_uname = $s_data['userdata']['User_uname'];
+		$s_mob = $s_data['userdata']['user_mobile'];
 		$s_email = $s_data['userdata']['user_email'];
-		//$s_pass = $s_data['userdata']['User_Password'];
 		$data['s_id'] = $s_id;
 		$data['s_fname'] = $s_fname;
+		$data['s_lname'] = $s_lname;
+		$data['s_uname'] = $s_uname;
+		$data['s_mob'] = $s_mob;
 		$data['s_email'] = $s_email;	
-		//$data['s_pass'] = $s_pass;	
 		$this->load->view('header');
         $this->load->view('/userDetail', $data);
         $this->load->view('footer');
+		
+		//print_r($data);die();
 	}
+
+	public function editUserdetail()
+			{
+			//print_r ($this->input->post());
+			//echo "11111"; die;
+			//echo "<pre>"; 
+			//print_r($this->session->all_userdata()); 
+			//die();	
+					
+			if(isset($_POST['cmdSubmit']) && $_POST['cmdSubmit'] == 'Update User Name'){
+				$u_id = $_POST['UserId'];
+				//echo $u_id;die();
+			  $userDetails['FirstName'] = $_POST['FirstName'];
+			  $userDetails['LastName'] = $_POST['LastName'];
+			  $userDetails['UserName'] = $_POST['UserName'];
+			  $userDetails['mobileNo'] = $_POST['mobileNo'];
+			  $userDetails['emailId'] = $_POST['emailId'];	
+			  $userDetails['Password'] = md5($_POST['Password2']);
+			  $update_flag = $this->login_models->update_user($userDetails, $u_id);
+			  if($update_flag){
+			  	
+				$this->session->set_flashdata('user_update_success', $retmsg);
+			    redirect('admin/manageuser/');
+			  }else{
+					  
+					  $this->session->set_flashdata('user_update_fail', $retmsg);
+					  $this->load->view('/userDetail');  	
+			  }
+			  if($addManageUser){
+				  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
+                        $msg = $this->manageuser_models->addManageUser($UserId);
+                       }
+                   $retmsg = 1;
+                   $this->session->set_flashdata('add_success', $retmsg);
+                   redirect('admin/manageuser/');
+               }else{
+                  $retmsg = 1;
+                  $this->session->set_flashdata('add_unsuccess', $retmsg);
+                  redirect('admin/manageuser/');    
+               }
+			  
+			  
+			}
+   }
+
 }

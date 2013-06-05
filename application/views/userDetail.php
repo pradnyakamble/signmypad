@@ -17,10 +17,16 @@
                                 required: true
                     },
                     
-                    "Password": {
+                    "Password1": {
                         required: true,
                         PasswordRegex: true
                     },
+                    
+                     "Password2": {
+                        required: true,
+                        equalTo: "#Password1",
+                        PasswordRegex: true
+                    }
                 },
                 
                 messages: {                   
@@ -28,7 +34,12 @@
                         required: "You must enter your Email Id"
                     },
                     
-                     "Password": {
+                     "Password1": {
+                        required: "You must enter your Password",
+                        PasswordRegex: "Password requires one capital latter, one special character and minimum of 8 characters."
+                    },
+                    
+                    "Password2": {
                         required: "You must enter your Password",
                         PasswordRegex: "Password requires one capital latter, one special character and minimum of 8 characters."
                     },
@@ -42,7 +53,7 @@
     <section id="dashboard">
             <!-- Nav Shortcuts -->
             <!-- /Nav Shortcuts -->
-        </section>
+
     <article class="content-box minimizer">
         <header>	
             <h2>Edit Your Detail</h2>
@@ -59,7 +70,7 @@
              
                     
 											
-                    <form class="validate" name="frmadminstrator" id="frmadminstrator" action="<?php echo base_url(); ?>admin/manageuser/editmanageuserdetail" method="post" enctype="multipart/form-data">
+                    <form class="validate" name="frmadminstrator" id="frmadminstrator" action="<?php echo base_url(); ?>login/editUserdetail" method="post" enctype="multipart/form-data">
 								<input type = "hidden" name = "UserId" value= "<?php echo $s_id;?>"/>
 								<fieldset>
 									 <?php if($this->session->flashdata('edit_unsuccess')){?>
@@ -73,6 +84,44 @@
                                 	<legend>Change Your Password <?php echo $s_fname;?></legend>
 
 								<dl>
+									
+									<dt>
+										<label>First Name : </label>
+									</dt>
+									<dd>
+										<div id ="FileUploader">
+										<input class="small required" type = "text" name = "FirstName" id = "FirstName" value="<?php echo $s_fname; ?>"/>
+										</div>
+									</dd>
+							
+									<dt>
+										<label>Last Name : </label>
+									</dt>
+									<dd>
+										<div id ="FileUploader">
+										<input class="small required" type = "text" name = "LastName" id = "LastName" value="<?php echo $s_lname; ?>"/>
+										</div>
+									</dd>
+								
+									<dt>
+										<label>User Name : </label>
+									</dt>
+									<dd>
+										<div id ="FileUploader">
+										<input class="small required" type = "text" name = "UserName" id = "UserName" value="<?php echo $s_uname; ?>"/>
+										</div>
+									</dd>
+									
+									<dt>
+										<label>Mobile No. : </label>
+									</dt>
+									<dd>
+										<div id ="FileUploader">
+										<input class="small required mobile" type = "text" name = "mobileNo" id = "mobileNo" value="<?php echo $s_mob; ?>"/>
+										</div>
+									</dd>
+								
+								
 									<dt>
 										<label>Email : </label>
 									</dt>
@@ -83,11 +132,11 @@
 									</dd>
 									
 									<dt>
-										<label>Password : </label>
+										<label>New Password : </label>
 									</dt>
 									<dd>
 										<div id ="FileUploader">
-										<input class="small required" type = "text" name = "Password" id = "Password"/>										
+										<input class="small required" type = "password" name = "Password1" id = "Password1"/>										
 										</div>
 									</dd>
 									
@@ -97,7 +146,7 @@
 									</dt>
 									<dd>
 										<div id ="FileUploader">
-										<input class="small required" type = "text" name = "Password" id = "Password" />										
+										<input class="small required" type = "password" name = "Password2" id = "Password2" />										
 										</div>
 									</dd>
 						

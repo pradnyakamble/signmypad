@@ -36,15 +36,20 @@ class Login_models extends CI_Model{
           }
 	  
      }
-	 
-	 function getUser($UserId){
-        $this->db->select('Users.UserId');
-        $this->db->from('Users');
-        $this->db->where('Users.UserId',$UserId);
-        $query = $this->db->get();
-		//echo $this->db->last_query();
-        return $query->result_array();
-    }
-
+	
+	public function update_user($userdata, $u_id)
+	{
+		//print_r($u_id);die();
+		$this->db->where('UserId', $u_id);
+        $result = $this->db->update('Users', $userdata);
+		if($result){
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+    
+	
 
 }        
