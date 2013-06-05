@@ -50,15 +50,29 @@ class Login_models extends CI_Model{
 		}
 	}
     
-	 public function getpass()
-	 {      
-        $userSessData = $this->session->userdata('userdata');
-	 	//$this->db->where('Status', 'Active');  
-        $this->db->where_not_in('UserId',$userSessData['user_id']); 
+	 public function getpass($u_id)
+	 {
+	 	      
+        //$userSessData = $this->session->userdata('userdata');
+	 	$this->db->where('UserId', $u_id);  
+        //$this->db->where_not_in('UserId',$userSessData['user_id']); 
 		$query = $this->db->get('Users');
 		$arrResult = $query->result_array();
+		
+		//print_r($arrResult);die();
 		return $arrResult;
 		
+	 }
+	  public function update_pass($uid,$udata)
+	 {
+		 $this->db->where('UserId', $uid);
+        $result = $this->db->update('Users', $udata);
+		if($result){
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
 	 }
 	/*
 	 public function getpass($UserId)

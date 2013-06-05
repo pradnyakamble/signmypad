@@ -147,33 +147,40 @@ class Login extends CI_Controller{
 
 	public function getUserPass()
 			{
-			//print_r ($this->input->post());
+			  	
+				//print_r($this->input->post());die();
+			  $u_id = $this->input->post('UserId');
+			 
 			//echo "11111"; die;
-			//echo "<pre>"; 
+			 //echo "<pre>"; 
 			//print_r($this->session->all_userdata()); 
 			//die();	
-				
-			$userDetails['query'] = $this->login_models->getpass();
-	        $this->load->view('/userDetail',$userDetails);
-			
-			if(isset($_POST['cmdSubmit']) && $_POST['cmdSubmit'] == 'Update User Password'){
-				$u_id = $_POST['UserId'];
-				//echo $u_id;die();	
-		      $userDetails['Password'] = ($_POST['Password']);
-			  $userDetails['Password'] = ($_POST['Password1']);
-			  $userDetails['Password'] = md5($_POST['Password2']);
-			  $update_flag = $this->login_models->update_user($userDetails, $u_id);
-			  if($update_flag){
-			  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
-                       }
-                   $retmsg = 1;
-                   $this->session->set_flashdata('password_update_success', $retmsg);
+			$pass_data = $this->login_models->getpass($u_id);
+			//print_r($pass_data);die();
+			$db_pass = $pass_data[0]['Password'];  
+			//echo "db pass-->";print_r($db_pass);//die();
+			$post_pass = md5($this->input->post('Password'));
+			 $pass_updata['Password'] = md5($this->input->post('Password1'));
+			//echo "post pass -->";print_r($post_pass);
+			//die();   
+			if($db_pass === $post_pass){
+				$u_flag = $this->login_models->update_pass($u_id,$pass_updata);		
+				if($u_flag){
+					 $retmsg = 1;
+					$this->session->set_flashdata('password_update_success', $retmsg);
                    redirect('admin/manageuser/');
-               }else{
-                  $retmsg = 1;
-                   $this->session->set_flashdata('password_update_fail', $retmsg);
-                  $this->load->view('/userDetail');  	  
-               }
+				}
+				else {
+					 $retmsg = 1;
+					 $this->session->set_flashdata('password_update_fail', $retmsg);
+                  $this->load->view('/userDetail');  
+				}		
+				
+			}   
+			else{
+				 $retmsg = 1;
+				 $this->session->set_flashdata('password_update_fail', $retmsg);
+                  $this->load->view('/userDetail');  
 			}
    }
 

@@ -2,6 +2,7 @@
         
 <section class="page-wrapper" role="main">
     <section id="dashboard">
+    </section>
 	<?php if($this->session->flashdata('edit_success')){?>
         <div class="notification success"
         id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
@@ -57,10 +58,28 @@
 
                     <h4>Success</h4>
 
-            <p>User Data hase been successfully added in Database !!</p>
+            <p>User Data hase been successfully Updated !!</p>
         </div>
   
     <?php } if($this->session->flashdata('user_update_fail')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>There is some problem please try later !!</p>
+        </div>
+  			
+  			<?php } if($this->session->flashdata('password_update_success')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>Password hase been successfully Updated !!</p>
+        </div>
+  
+    <?php } if($this->session->flashdata('password_update_fail')) { ?>
      <div class="notification success"
         id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 

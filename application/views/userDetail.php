@@ -76,12 +76,7 @@
     <article class="content-box minimizer">
         <header>	
             <h2>Edit Your Detail</h2>
-            <nav style="display: block;">
-                <ul class="button-switch">
-                    <li><a href="<?php echo base_url(); ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
-                    </li>
-                </ul>
-            </nav>
+            
         </header> 
         <section>
             
@@ -242,16 +237,31 @@
     <section id="dashboard">
             <!-- Nav Shortcuts -->
             <!-- /Nav Shortcuts -->
+ <section>
+ 	
+ 	<?php if($this->session->flashdata('password_update_success')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 
+                    <h4>Success</h4>
+
+            <p>Password hase been successfully Updated !!</p>
+        </div>
+  
+    <?php } if($this->session->flashdata('password_update_fail')) { ?>
+     <div class="notification success"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                    <h4>Success</h4>
+
+            <p>There is some problem please try later !!</p>
+        </div>
+  
+  
+        <?php } ?>
     <article class="content-box minimizer">
         <header>	
-            <h2>Edit Your Password</h2>
-            <nav style="display: block;">
-                <ul class="button-switch">
-                    <li><a href="<?php echo base_url(); ?>admin/manageuser/addmanageuser" class="button">Add New User</a>
-                    </li>
-                </ul>
-            </nav>
+            <h2>Edit Your Password</h2>            
         </header> 
         <section>
             
