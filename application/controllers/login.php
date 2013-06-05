@@ -40,7 +40,8 @@ class Login extends CI_Controller{
                                 'user_lname' => $result[0]['LastName'],
                                 'user_mobile' => $result[0]['mobileNo'],
                                 'User_uname'=> $result[0]['UserName'],								
-                                'User_TypeId'=> $result[0]['UserTypeId']
+                                'User_TypeId'=> $result[0]['UserTypeId'],                                							
+                                'User_pass'=> $result[0]['Password']
                             )
                         );
                     $this->session->set_userdata($data);
@@ -120,7 +121,7 @@ class Login extends CI_Controller{
 			//print_r($this->session->all_userdata()); 
 			//die();	
 					
-			if(isset($_POST['cmdSubmit']) && $_POST['cmdSubmit'] == 'Update User Name'){
+			if(isset($_POST['cmdSubmit']) && $_POST['cmdSubmit'] == 'Update User Detail'){
 				$u_id = $_POST['UserId'];
 				//echo $u_id;die();
 			  $userDetails['FirstName'] = $_POST['FirstName'];
@@ -128,31 +129,51 @@ class Login extends CI_Controller{
 			  $userDetails['UserName'] = $_POST['UserName'];
 			  $userDetails['mobileNo'] = $_POST['mobileNo'];
 			  $userDetails['emailId'] = $_POST['emailId'];	
-			  $userDetails['Password'] = md5($_POST['Password2']);
+			  //$userDetails['Password'] = md5($_POST['Password2']);
 			  $update_flag = $this->login_models->update_user($userDetails, $u_id);
 			  if($update_flag){
-			  	
-				$this->session->set_flashdata('user_update_success', $retmsg);
-			    redirect('admin/manageuser/');
-			  }else{
-					  
-					  $this->session->set_flashdata('user_update_fail', $retmsg);
-					  $this->load->view('/userDetail');  	
-			  }
-			  if($addManageUser){
-				  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
-                        $msg = $this->manageuser_models->addManageUser($UserId);
+			  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
                        }
                    $retmsg = 1;
-                   $this->session->set_flashdata('add_success', $retmsg);
+                   $this->session->set_flashdata('user_update_success', $retmsg);
                    redirect('admin/manageuser/');
                }else{
                   $retmsg = 1;
-                  $this->session->set_flashdata('add_unsuccess', $retmsg);
-                  redirect('admin/manageuser/');    
+                   $this->session->set_flashdata('user_update_fail', $retmsg);
+                  $this->load->view('/userDetail');  	  
                }
-			  
-			  
+			}
+   }
+
+	public function getUserPass()
+			{
+			//print_r ($this->input->post());
+			//echo "11111"; die;
+			//echo "<pre>"; 
+			//print_r($this->session->all_userdata()); 
+			//die();	
+				
+			$userDetails['query'] = $this->login_models->getpass();
+	        $this->load->view('/userDetail',$userDetails);
+			
+			if(isset($_POST['cmdSubmit']) && $_POST['cmdSubmit'] == 'Update User Password'){
+				$u_id = $_POST['UserId'];
+				//echo $u_id;die();	
+		      $userDetails['Password'] = ($_POST['Password']);
+			  $userDetails['Password'] = ($_POST['Password1']);
+			  $userDetails['Password'] = md5($_POST['Password2']);
+			  $update_flag = $this->login_models->update_user($userDetails, $u_id);
+			  if($update_flag){
+			  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
+                       }
+                   $retmsg = 1;
+                   $this->session->set_flashdata('password_update_success', $retmsg);
+                   redirect('admin/manageuser/');
+               }else{
+                  $retmsg = 1;
+                   $this->session->set_flashdata('password_update_fail', $retmsg);
+                  $this->load->view('/userDetail');  	  
+               }
 			}
    }
 
