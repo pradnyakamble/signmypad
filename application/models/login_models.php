@@ -74,18 +74,7 @@ class Login_models extends CI_Model{
 			return FALSE;
 		}
 	 }
-	/*
-	 public function getpass($UserId)
-    {
-        $this->db->select('*');
-        $this->db->from('Users');
-		$this->db->where('UserId', $u_id);
-        $this->db->where('Password',($this->input->post('password')));
-        $query = $this->db->get();
-	    print_r($this->db->last_query()); die();
-
-        return $query->result_array();
-    }*/
+	
 	
 
 }        

@@ -249,14 +249,22 @@
         </div>
   
     <?php } if($this->session->flashdata('password_update_fail')) { ?>
-     <div class="notification success"
+     <div class="notification attention"
         id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
 
-                    <h4>Success</h4>
+                    <h4>Failed</h4>
 
             <p>There is some problem please try later !!</p>
         </div>
   
+      <?php } if($this->session->flashdata('wrong_password')) { ?>
+     <div class="notification attention"
+        id="success">	<a href="#" class="close-notification " title="Hide Notification">x</a>
+
+                     <h4>Failed</h4>
+
+            <p>Please enter correct password !!</p>
+        </div>
   
         <?php } ?>
     <article class="content-box minimizer">

@@ -128,8 +128,7 @@ class Login extends CI_Controller{
 			  $userDetails['LastName'] = $_POST['LastName'];
 			  $userDetails['UserName'] = $_POST['UserName'];
 			  $userDetails['mobileNo'] = $_POST['mobileNo'];
-			  $userDetails['emailId'] = $_POST['emailId'];	
-			  //$userDetails['Password'] = md5($_POST['Password2']);
+			  $userDetails['emailId'] = $_POST['emailId'];
 			  $update_flag = $this->login_models->update_user($userDetails, $u_id);
 			  if($update_flag){
 			  	 if(isset($_POST['UserId']) && !empty($_POST['UserId'])){
@@ -178,9 +177,11 @@ class Login extends CI_Controller{
 				
 			}   
 			else{
-				 $retmsg = 1;
-				 $this->session->set_flashdata('password_update_fail', $retmsg);
-                  $this->load->view('/userDetail');  
+                                //echo 'HIiiiiiiiiiii'; die();
+				$retmsg = 1;
+				$this->session->set_flashdata('wrong_password', $retmsg);
+                                 //$this->load->view('/userDetail');
+                                $this->userDetail();
 			}
    }
 
